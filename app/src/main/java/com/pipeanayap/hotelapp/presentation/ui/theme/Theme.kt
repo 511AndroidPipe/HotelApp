@@ -1,4 +1,4 @@
-package com.pipeanayap.hotelapp.ui.theme
+package com.pipeanayap.hotelapp.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

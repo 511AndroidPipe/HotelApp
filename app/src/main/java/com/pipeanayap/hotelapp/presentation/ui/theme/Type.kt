@@ -1,4 +1,4 @@
-package com.pipeanayap.hotelapp.ui.theme
+package com.pipeanayap.hotelapp.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
