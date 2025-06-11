@@ -57,6 +57,7 @@ import com.pipeanayap.hotelapp.presentation.Components.Lock
 import com.pipeanayap.hotelapp.presentation.Components.Visibility
 import com.pipeanayap.hotelapp.presentation.Components.Visibility_off
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
+import com.pipeanayap.hotelapp.presentation.viewmodels.AuthViewModel
 
 
 @Composable
@@ -70,6 +71,8 @@ fun RegisterScreen(innerPadding: PaddingValues) {
     var phoneNumber by remember {
         mutableStateOf("")
     }
+
+    val viewModel : AuthViewModel = hiltViewModel()
 
     var confirmPassword by remember {
         mutableStateOf("")
@@ -259,7 +262,7 @@ fun RegisterScreen(innerPadding: PaddingValues) {
         //Button para Registrar
         Button(
             onClick = {
-                //viewModel.register(email, password)
+                viewModel.register(email, password, name, phoneNumber)
             },
             enabled = (password == confirmPassword) && email.isNotBlank()
                     && password.isNotBlank() && confirmPassword.isNotBlank()
