@@ -14,7 +14,7 @@ sealed class Screens(){
 
 
     @Serializable
-    object HomeScreenRoute : Screens()
+    object MenuScreenRoute : Screens()
 
 
     @Serializable
