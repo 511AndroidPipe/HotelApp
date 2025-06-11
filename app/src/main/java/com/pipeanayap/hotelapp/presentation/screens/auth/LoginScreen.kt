@@ -124,7 +124,7 @@ fun LoginScreen(navController: NavController){
             style = MaterialTheme.typography.displaySmall,
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold,
-            letterSpacing = 3.sp
+            letterSpacing = 5.sp
 
         )
 
