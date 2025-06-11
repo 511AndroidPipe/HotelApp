@@ -109,7 +109,7 @@ fun RegisterScreen(innerPadding: PaddingValues) {
         Image(
             painter = painterResource(R.drawable.logo_worldwide),
             contentDescription = "Login",
-            modifier = Modifier.size(200.dp),
+            modifier = Modifier.size(160.dp).padding(bottom = 20.dp),
             contentScale = ContentScale.Crop
         )
 
@@ -199,8 +199,7 @@ fun RegisterScreen(innerPadding: PaddingValues) {
             },
             trailingIcon = {
                 Icon(
-                    imageVector = if (isPasswordVisible) Visibility_off else Visibility,
-                    contentDescription = "password",
+                    imageVector = if(isPasswordVisible) Visibility else Visibility_off,                    contentDescription = "password",
                     modifier = Modifier.clickable {
                         isPasswordVisible = !isPasswordVisible
 
@@ -230,8 +229,7 @@ fun RegisterScreen(innerPadding: PaddingValues) {
             },
             trailingIcon = {
                 Icon(
-                    imageVector = if (isConfirmedPasswordVisible) Visibility_off else Visibility,
-                    contentDescription = "password",
+                    imageVector = if(isPasswordVisible) Visibility else Visibility_off,                    contentDescription = "password",
                     modifier = Modifier.clickable {
                         isConfirmedPasswordVisible = !isConfirmedPasswordVisible
 
