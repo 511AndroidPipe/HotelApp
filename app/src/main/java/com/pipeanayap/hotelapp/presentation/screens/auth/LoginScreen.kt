@@ -127,13 +127,13 @@ fun LoginScreen(navController: NavController){
             letterSpacing = 3.sp
 
         )
-        //Imagen x
-//        Image(
-//            painter = painterResource(R.drawable.)
-//            contentDescription = "Login",
-//            modifier = Modifier.size(250.dp),
-//            contentScale = ContentScale.Crop
-//        )
+
+        Image(
+            painter = painterResource(R.drawable.logo_worldwide),
+            contentDescription = "Login",
+            modifier = Modifier.size(250.dp),
+            contentScale = ContentScale.Crop
+        )
         //Textfield para el correo
         OutlinedTextField(
             value = email,
