@@ -1,3 +1,8 @@
 package com.pipeanayap.hotelapp.domain.dtos
 
-data class AuthResponse()
+
+//Reponse del login
+data class AuthResponse(
+    val message : String,
+    val role : List<String>
+)
