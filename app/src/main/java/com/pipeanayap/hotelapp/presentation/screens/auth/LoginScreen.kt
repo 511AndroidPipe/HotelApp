@@ -181,9 +181,9 @@ fun LoginScreen(navController: NavController){
         //Button para iniciar sesion
         Button(
             onClick = {
-//                navController.navigate(Screens.MainScreenRoute){
-//                    popUpTo(Screens.LoginScreenRoute) { inclusive = true }
-//                }
+                navController.navigate(Screens.MainScreenRoute){
+                    popUpTo(Screens.LoginScreenRoute) { inclusive = true }
+                }
                 viewModel.login(email, password)
             },
             modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)
