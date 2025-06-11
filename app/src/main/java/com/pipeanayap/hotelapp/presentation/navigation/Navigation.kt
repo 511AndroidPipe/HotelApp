@@ -21,6 +21,8 @@ sealed class Screens(){
     object StatsScreenRoute : Screens()
 
 
+
+
     @Serializable
     object MainGraph : Screens()
 

@@ -181,7 +181,7 @@ fun LoginScreen(navController: NavController){
         //Button para iniciar sesion
         Button(
             onClick = {
-//                navController.navigate(Screens.MainScreemRoute){
+//                navController.navigate(Screens.MainScreenRoute){
 //                    popUpTo(Screens.LoginScreenRoute) { inclusive = true }
 //                }
                 viewModel.login(email, password)

@@ -9,29 +9,37 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
+// Dark Theme
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = HotelGold,                   // Acento elegante
+    onPrimary = HotelBlueDark,            // Texto sobre el acento
+    primaryContainer = HotelBlueLight,    // Fondo de botones o contenedores primarios
+    onPrimaryContainer = TextOnDark,      // Texto sobre contenedores primarios
+    secondary = HotelSkyBlue,             // Acento secundario suave
+    onSecondary = TextOnDark,             // Texto sobre acento secundario
+    background = HotelBlue,               // Fondo principal
+    surface = HotelBlueDark,              // Superficies (como cards, etc.)
+    onBackground = TextOnDark,            // Texto principal sobre fondo oscuro
+    onSurface = TextOnDark                // Texto sobre superficie
 )
 
+// Light Theme
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = HotelGold,                  // Acento elegante
+    onPrimary = TextPrimary,             // Texto sobre acento
+    primaryContainer = HotelBeige,       // Contenedor primario claro
+    onPrimaryContainer = TextPrimary,    // Texto sobre contenedor primario
+    secondary = HotelSkyBlue,            // Acento secundario
+    onSecondary = TextPrimary,           // Texto sobre acento secundario
+    background = HotelWhite,             // Fondo claro principal
+    surface = HotelLightGray,            // Superficies secundarias
+    onBackground = TextPrimary,          // Texto principal
+    onSurface = TextPrimary              // Texto sobre superficie
 )
+
 
 @Composable
 fun HotelAppTheme(
