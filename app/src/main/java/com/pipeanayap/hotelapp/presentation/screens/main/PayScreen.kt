@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -184,6 +185,22 @@ fun PayScreen() {
             Text(
                 text = "$100 USD",
                 style = MaterialTheme.typography.bodyLarge
+            )
+        }
+
+
+        // Botón de pago
+        Button(
+            onClick = { /* Acción de pago */ },
+            modifier = Modifier
+                .weight(0.6f)
+                .padding(vertical = 16.dp),
+        ) {
+            Text(
+                text = "Credit/Debit Card",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
             )
         }
     }
