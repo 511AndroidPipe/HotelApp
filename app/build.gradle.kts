@@ -68,9 +68,9 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     //Dependencia de async image
-    dependencies {
-        implementation("io.coil-kt:coil-compose:2.5.0") // o la versión más reciente
-    }
+
+    implementation("io.coil-kt:coil-compose:2.5.0") // o la versión más reciente
+
 
 
     //Dagger hilt
