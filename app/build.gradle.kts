@@ -67,10 +67,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation(libs.kotlinx.serialization.json)
 
-    //Dependencia de async image
-    dependencies {
-        implementation("io.coil-kt:coil-compose:2.5.0") // o la versión más reciente
-    }
+    //iconos
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
 
 
     //Dagger hilt
@@ -78,6 +76,4 @@ dependencies {
     ksp("com.google.dagger:dagger-compiler:2.56.2")
     ksp("com.google.dagger:hilt-android-compiler:2.56.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
-
 }
