@@ -42,6 +42,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.pipeanayap.hotelapp.R
+import com.pipeanayap.hotelapp.presentation.Components.Lock
+import com.pipeanayap.hotelapp.presentation.Components.Visibility
+import com.pipeanayap.hotelapp.presentation.Components.Visibility_off
 import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.viewmodels.AuthViewModel
 
@@ -121,17 +124,17 @@ fun LoginScreen(navController: NavController){
         Text(
             modifier = Modifier.padding(bottom = 20.dp),
             text = stringResource(R.string.app_name),
-            style = MaterialTheme.typography.displaySmall,
+            style = MaterialTheme.typography.displayMedium,
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold,
-            letterSpacing = 3.sp
+            letterSpacing = 5.sp
 
         )
 
         Image(
             painter = painterResource(R.drawable.logo_worldwide),
             contentDescription = "Login",
-            modifier = Modifier.size(250.dp),
+            modifier = Modifier.size(185.dp).padding(bottom = 20.dp),
             contentScale = ContentScale.Crop
         )
         //Textfield para el correo
@@ -154,18 +157,18 @@ fun LoginScreen(navController: NavController){
         OutlinedTextField(
             value = password,
             onValueChange = { password = it},
-//            leadingIcon = { Icon(
-//                imageVector = Defa,
-//                contentDescription = "password"
-//            ) },
-//            trailingIcon = { Icon(
-//                imageVector = if(isPasswordVisible) Visibility_off else Visibility,
-//                contentDescription = "password",
-//                modifier = Modifier.clickable {
-//                    isPasswordVisible = !isPasswordVisible
-//
-//                }
-//            ) },
+            leadingIcon = { Icon(
+                imageVector = Lock,
+                contentDescription = "password"
+            ) },
+            trailingIcon = { Icon(
+                imageVector = if(isPasswordVisible) Visibility else Visibility_off,
+                contentDescription = "password",
+                modifier = Modifier.clickable {
+                    isPasswordVisible = !isPasswordVisible
+
+                }
+            ) },
             placeholder = {
                 Text(
                     text = "Contraseña"
@@ -178,9 +181,9 @@ fun LoginScreen(navController: NavController){
         //Button para iniciar sesion
         Button(
             onClick = {
-//                navController.navigate(Screens.MainScreemRoute){
-//                    popUpTo(Screens.LoginScreenRoute) { inclusive = true }
-//                }
+                navController.navigate(Screens.MainScreenRoute){
+                    popUpTo(Screens.LoginScreenRoute) { inclusive = true }
+                }
                 viewModel.login(email, password)
             },
             modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)

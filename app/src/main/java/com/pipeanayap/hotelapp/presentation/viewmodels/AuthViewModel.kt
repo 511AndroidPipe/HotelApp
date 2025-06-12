@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pipeanayap.hotelapp.domain.models.Auth
+import com.pipeanayap.hotelapp.domain.models.Register
 import com.pipeanayap.hotelapp.services.AuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -32,6 +33,24 @@ class AuthViewModel @Inject constructor(
                     _loginEvent.emit(response.message)
                 }
             } catch (e: Exception) {
+                Log.e("AuthViewModel", "Error: ${e.message}", e)
+                _loginEvent.emit("Error de conexión: ${e.message}")
+            }
+        }
+    }
+
+    fun register(email: String, password: String, name : String, phone : String){
+        val register = Register(email = email, password = password, name = name, phone = phone)
+        viewModelScope.launch {
+            try {
+                val response = authService.register(register)
+                Log.i("AuthViewModel", "Response: $response")
+                if (response.message == "Login successful") {
+                    _loginEvent.emit("Login successful")
+                } else {
+                    _loginEvent.emit(response.message)
+                }
+            }catch (e: Exception) {
                 Log.e("AuthViewModel", "Error: ${e.message}", e)
                 _loginEvent.emit("Error de conexión: ${e.message}")
             }
