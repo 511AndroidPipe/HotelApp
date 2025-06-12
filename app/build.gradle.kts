@@ -71,7 +71,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0") // o la versión más reciente
 
 
-
     //Dagger hilt
     implementation("com.google.dagger:hilt-android:2.56.2")
     ksp("com.google.dagger:dagger-compiler:2.56.2")
