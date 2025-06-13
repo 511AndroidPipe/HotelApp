@@ -25,6 +25,9 @@ val HotelDarkGray = Color(0xFF4B4F58)     // Texto secundario en oscuro
 val HotelGold = Color(0xFFE0C07D)         // Acento dorado/beige suave
 val HotelBeige = Color(0xFFF5E9D3)        // Fondo cálido suave
 val HotelSkyBlue = Color(0xFFB4CDED)      // Azul claro tipo acento secundario
+val DetailRegisterColorBG = Color(0xFFF3F0E9)  // Color beige claro para fondo de detalles
+val DetailRegisterDateColor = Color(0xFF848897)   // Color gris para fechas
+val Azulito = Color(0xFF162144)          // Azul Oscuro para el botón de check in
 
 // Colores para texto
 val TextPrimary = Color(0xFF1E1E1E)        // Texto en claro
