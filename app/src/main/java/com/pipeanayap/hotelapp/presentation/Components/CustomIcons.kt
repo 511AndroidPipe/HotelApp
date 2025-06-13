@@ -519,3 +519,141 @@ public val Bitcoin: ImageVector
     }
 
 private var _Bitcoin: ImageVector? = null
+
+
+val Account_balance: ImageVector
+    get() {
+        if (_Account_balance != null) return _Account_balance!!
+
+        _Account_balance = ImageVector.Builder(
+            name = "Account_balance",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF000000))
+            ) {
+                moveTo(200f, 680f)
+                verticalLineToRelative(-280f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(280f)
+                close()
+                moveToRelative(240f, 0f)
+                verticalLineToRelative(-280f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(280f)
+                close()
+                moveTo(80f, 840f)
+                verticalLineToRelative(-80f)
+                horizontalLineToRelative(800f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(600f, -160f)
+                verticalLineToRelative(-280f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(280f)
+                close()
+                moveTo(80f, 320f)
+                verticalLineToRelative(-80f)
+                lineToRelative(400f, -200f)
+                lineToRelative(400f, 200f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(178f, -80f)
+                horizontalLineToRelative(444f)
+                close()
+                moveToRelative(0f, 0f)
+                horizontalLineToRelative(444f)
+                lineTo(480f, 130f)
+                close()
+            }
+        }.build()
+
+        return _Account_balance!!
+    }
+
+private var _Account_balance: ImageVector? = null
+
+
+
+val EditCalendar: ImageVector
+    get() {
+        if (_editCalendar != null) return _editCalendar!!
+
+        _editCalendar = ImageVector.Builder(
+            name = "EditCalendar",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black)
+            ) {
+                moveTo(200f, 880f)
+                quadToRelative(-33f, 0f, -56.5f, -23.5f)
+                reflectiveQuadTo(120f, 800f)
+                verticalLineToRelative(-560f)
+                quadToRelative(0f, -33f, 23.5f, -56.5f)
+                reflectiveQuadTo(200f, 160f)
+                horizontalLineToRelative(40f)
+                verticalLineToRelative(-80f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(80f)
+                horizontalLineToRelative(320f)
+                verticalLineToRelative(-80f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(80f)
+                horizontalLineToRelative(40f)
+                quadToRelative(33f, 0f, 56.5f, 23.5f)
+                reflectiveQuadTo(840f, 240f)
+                verticalLineToRelative(200f)
+                horizontalLineToRelative(-80f)
+                verticalLineToRelative(-40f)
+                horizontalLineTo(200f)
+                verticalLineToRelative(400f)
+                horizontalLineToRelative(280f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(0f, -560f)
+                horizontalLineToRelative(560f)
+                verticalLineToRelative(-80f)
+                horizontalLineTo(200f)
+                close()
+                moveTo(560f, 880f)
+                verticalLineToRelative(-123f)
+                lineToRelative(221f, -220f)
+                quadToRelative(9f, -9f, 20f, -13f)
+                reflectiveQuadToRelative(22f, -4f)
+                quadToRelative(12f, 0f, 23f, 4.5f)
+                reflectiveQuadToRelative(20f, 13.5f)
+                lineToRelative(37f, 37f)
+                quadToRelative(8f, 9f, 12.5f, 20f)
+                reflectiveQuadToRelative(4.5f, 22f)
+                reflectiveQuadToRelative(-4f, 22.5f)
+                reflectiveQuadToRelative(-13f, 20.5f)
+                lineTo(683f, 880f)
+                close()
+                moveToRelative(300f, -263f)
+                lineToRelative(-37f, -37f)
+                close()
+                moveTo(620f, 820f)
+                horizontalLineToRelative(38f)
+                lineToRelative(121f, -122f)
+                lineToRelative(-18f, -19f)
+                lineToRelative(-19f, -18f)
+                lineToRelative(-122f, 121f)
+                close()
+                moveToRelative(141f, -141f)
+                lineToRelative(-19f, -18f)
+                lineToRelative(37f, 37f)
+                close()
+            }
+        }.build()
+
+        return _editCalendar!!
+    }
+
+private var _editCalendar: ImageVector? = null
