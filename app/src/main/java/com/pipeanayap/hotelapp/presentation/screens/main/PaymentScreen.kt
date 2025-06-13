@@ -205,7 +205,7 @@ fun PaymentScreen() {
                         .clip(RoundedCornerShape(20.dp)),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.LightGray,
-                        contentColor = Color.DarkGray
+                        contentColor = Color.Black
                     )
                 ) {
                     Text(
