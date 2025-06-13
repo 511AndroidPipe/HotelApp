@@ -58,7 +58,7 @@ fun MenuScreen(innerPadding: PaddingValues){
                 .height(380.dp)
         ) {
             AsyncImage(
-                model = "https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg",
+                model = "https://apiimg.iberostar.com/uploads/image/60020/crops/16:9/1920/image.jpeg",
                 contentDescription = null,
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.Crop
