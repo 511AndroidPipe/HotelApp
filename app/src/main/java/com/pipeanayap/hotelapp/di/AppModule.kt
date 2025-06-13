@@ -1,6 +1,7 @@
 package com.pipeanayap.hotelapp.di
 
 import com.pipeanayap.hotelapp.services.AuthService
+import com.pipeanayap.hotelapp.services.ReservationService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +30,14 @@ object AppModule {
     @Singleton
     fun providesAuthService(retrofit: Retrofit): AuthService {
         return retrofit.create(AuthService::class.java)
+    }
+
+
+    //Provider de el servicio de reservation
+    @Provides
+    @Singleton
+    fun providesReservationService(retrofit: Retrofit): ReservationService {
+        return retrofit.create(ReservationService::class.java)
     }
 
 }

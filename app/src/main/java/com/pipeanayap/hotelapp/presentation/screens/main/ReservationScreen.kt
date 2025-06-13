@@ -1,6 +1,7 @@
 package com.pipeanayap.hotelapp.presentation.screens.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,7 +46,9 @@ import okio.AsyncTimeout
 
 @Composable
 fun ReservationScreen(innerPadding: PaddingValues){
-
+    var url by remember {
+        mutableStateOf("")
+    }
     Column (modifier = Modifier
         .fillMaxSize()
         .padding(20.dp)
@@ -48,6 +56,10 @@ fun ReservationScreen(innerPadding: PaddingValues){
         .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
+
+        LaunchedEffect(true) {
+
+        }
 
         Row {
             Text(
@@ -97,8 +109,25 @@ fun ReservationScreen(innerPadding: PaddingValues){
                     .background(color = MaterialTheme.colorScheme.primary)
                     .height(15.dp)
                     .width(80.dp)
+                    .clickable {
 
-            )
+                    }
+
+
+            ){
+
+            }
+
+            Box(
+                Modifier
+                    .clip(RoundedCornerShape(90.dp))
+                    .background(color = MaterialTheme.colorScheme.primaryContainer)
+                    .clip(RoundedCornerShape(20.dp))
+                    .height(15.dp)
+                    .width(80.dp)
+            ){
+
+            }
 
             Box(
                 Modifier
@@ -108,15 +137,9 @@ fun ReservationScreen(innerPadding: PaddingValues){
                     .height(15.dp)
                     .width(80.dp)
             )
+            {
 
-            Box(
-                Modifier
-                    .clip(RoundedCornerShape(90.dp))
-                    .background(color = MaterialTheme.colorScheme.primaryContainer)
-                    .clip(RoundedCornerShape(20.dp))
-                    .height(15.dp)
-                    .width(80.dp)
-            )
+            }
         }
 
         Row (
