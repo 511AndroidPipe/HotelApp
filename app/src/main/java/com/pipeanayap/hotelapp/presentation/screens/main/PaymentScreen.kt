@@ -4,50 +4,59 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CreditCard
-import androidx.compose.material3.*
+import androidx.compose.material3.* // Asegúrate de que estás importando Material3
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.pipeanayap.hotelapp.presentation.ui.theme.HotelLightGray
 
 
+@OptIn(ExperimentalMaterial3Api::class) // Necesario para SegmentedButton
 @Composable
 fun PaymentScreen() {
     var cardNumber by remember { mutableStateOf("") }
+    // Estado para controlar la selección del tipo de tarjeta
+    var selectedCardType by remember { mutableStateOf("Debit Card") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.LightGray)
+            .background(HotelLightGray)
             .padding(24.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack,
+                imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Back Icon"
             )
+            Spacer(modifier = Modifier.weight(1f)) // Empuja el texto al centro
             Text(
                 text = "Payment",
-                style = MaterialTheme.typography.headlineLarge,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.weight(0.8f)
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
+            Spacer(modifier = Modifier.weight(1.2f)) // Compensa visualmente al ícono
         }
 
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxHeight()
                 .padding(5.dp)
+                .clip(RoundedCornerShape(20.dp))
                 .background(Color.White),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -61,40 +70,34 @@ fun PaymentScreen() {
                     .padding(horizontal = 24.dp)
             )
 
-            Box(
+            // --- Inicio del SegmentedButton ---
+            SingleChoiceSegmentedButtonRow(
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(Color.LightGray)
-                    .padding(8.dp),
-                contentAlignment = Alignment.Center
+                // Ya no es necesario clip aquí si itemShape maneja los bordes
+                // .clip(RoundedCornerShape(20.dp))
             ) {
-                Row {
-                    Button(
-                        onClick = { /* Acción */ },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.DarkGray,
-                            contentColor = Color.LightGray
-                        ),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text(text = "Debit Card")
-                    }
+                // Definimos la cantidad total de opciones
+                val options = listOf("Debit Card", "Credit Card")
 
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Button(
-                        onClick = { /* Acción */ },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.DarkGray,
-                            contentColor = Color.LightGray
-                        ),
-                        modifier = Modifier.weight(1f)
+                options.forEachIndexed { index, label ->
+                    SegmentedButton(
+                        selected = selectedCardType == label,
+                        onClick = { selectedCardType = label },
+                        // Usamos itemShape para obtener la forma correcta para cada botón
+                        shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                        colors = SegmentedButtonDefaults.colors(
+                            activeContainerColor = Color.DarkGray, // Color de fondo cuando está seleccionado
+                            activeContentColor = Color.LightGray, // Color del texto cuando está seleccionado
+                            inactiveContainerColor = Color.LightGray, // Color de fondo cuando no está seleccionado
+                            inactiveContentColor = Color.DarkGray // Color del texto cuando no está seleccionado
+                        )
                     ) {
-                        Text(text = "Credit Card")
+                        Text(label)
                     }
                 }
             }
+            // --- Fin del SegmentedButton ---
 
             Text(
                 text = "Card Number",
@@ -124,7 +127,6 @@ fun PaymentScreen() {
                     .clip(RoundedCornerShape(20.dp))
                     .background(Color.LightGray) // Fondo personalizado
                     .fillMaxWidth(0.9f)
-
             )
             Row(
                 modifier = Modifier
@@ -180,15 +182,14 @@ fun PaymentScreen() {
                     .padding(start = 24.dp)
             )
             OutlinedTextField(
-                value = cardNumber,
+                value = cardNumber, // Aquí podrías usar una variable para el nombre de la tarjeta
                 onValueChange = {},
                 placeholder = { Text("Enter Card Owner") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text), // Generalmente es texto, no número
                 modifier = Modifier
                     .clip(RoundedCornerShape(20.dp))
                     .background(Color.LightGray) // Fondo personalizado
                     .fillMaxWidth(0.9f)
-
             )
             Spacer(modifier = Modifier.height(60.dp))
             Row(

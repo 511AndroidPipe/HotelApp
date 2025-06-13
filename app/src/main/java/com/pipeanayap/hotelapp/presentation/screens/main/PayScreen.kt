@@ -51,7 +51,7 @@ fun PayScreen() {
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.weight(1f)) // Compensa visualmente al ícono
+            Spacer(modifier = Modifier.weight(1.2f)) // Compensa visualmente al ícono
         }
 
         Row(
