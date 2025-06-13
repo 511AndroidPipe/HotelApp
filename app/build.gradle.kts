@@ -71,6 +71,10 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
 
 
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+
     //Dagger hilt
     implementation("com.google.dagger:hilt-android:2.56.2")
     ksp("com.google.dagger:dagger-compiler:2.56.2")
