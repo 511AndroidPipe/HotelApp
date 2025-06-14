@@ -1,5 +1,6 @@
 package com.pipeanayap.hotelapp.presentation.screens.main
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.pipeanayap.hotelapp.R
 import com.pipeanayap.hotelapp.presentation.Components.Banknote
@@ -41,14 +43,21 @@ import com.pipeanayap.hotelapp.presentation.Components.BedDouble
 import com.pipeanayap.hotelapp.presentation.Components.HandPlatter
 import com.pipeanayap.hotelapp.presentation.Components.Lock
 import com.pipeanayap.hotelapp.presentation.Components.People
+import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
+import com.pipeanayap.hotelapp.presentation.viewmodels.RoomViewModel
 import okio.AsyncTimeout
 
 @Composable
 fun ReservationScreen(innerPadding: PaddingValues){
+
+    val viewModel: RoomViewModel = hiltViewModel()
+
+
     var url by remember {
         mutableStateOf("")
     }
+
     Column (modifier = Modifier
         .fillMaxSize()
         .padding(20.dp)
@@ -57,8 +66,19 @@ fun ReservationScreen(innerPadding: PaddingValues){
         horizontalAlignment = Alignment.CenterHorizontally
     ){
 
-        LaunchedEffect(true) {
+        LaunchedEffect(key1=true) {
+            viewModel.roomEvent.collect(){
+                    result -> Log.i("ReservationScreen", "Recibiendo datos de room: $result")
 
+
+//Aqui falto xdxdxd
+                    navController.navigate(Screens.RoomScreenRoute) {
+                        popUpTo(Screens.LoginScreenRoute) {
+                            inclusive = true
+
+
+                        }
+                    }}
         }
 
         Row {
@@ -109,7 +129,7 @@ fun ReservationScreen(innerPadding: PaddingValues){
                     .background(color = MaterialTheme.colorScheme.primary)
                     .height(15.dp)
                     .width(80.dp)
-                    .clickable {
+                    .clickable { //meter
 
                     }
 
