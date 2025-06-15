@@ -24,14 +24,14 @@ class RoomViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = roomService.getRooms()
-                Log.i("AuthViewModel", "Response: $response")
+                Log.i("RoomViewModel", "Response: $response")
                 if (response.any()) {
                     _roomEvent.emit(response)
                 } else {
                     _roomEvent.emit(listOf())
                 }
             } catch (e: Exception) {
-                Log.e("AuthViewModel", "Error: ${e.message}", e)
+                Log.e("RoomViewModel", "Error: ${e.message}", e)
                 _roomEvent.emit(listOf())
             }
         }

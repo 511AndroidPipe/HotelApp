@@ -36,8 +36,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.pipeanayap.hotelapp.R
+import com.pipeanayap.hotelapp.domain.models.Room
 import com.pipeanayap.hotelapp.presentation.Components.Banknote
 import com.pipeanayap.hotelapp.presentation.Components.BedDouble
 import com.pipeanayap.hotelapp.presentation.Components.HandPlatter
@@ -49,8 +51,9 @@ import com.pipeanayap.hotelapp.presentation.viewmodels.RoomViewModel
 import okio.AsyncTimeout
 
 @Composable
-fun ReservationScreen(innerPadding: PaddingValues){
+fun ReservationScreen(innerPadding: PaddingValues, navController: NavController){
 
+    //Esta la hizo diego
     val viewModel: RoomViewModel = hiltViewModel()
 
 
@@ -58,29 +61,25 @@ fun ReservationScreen(innerPadding: PaddingValues){
         mutableStateOf("")
     }
 
+    var rooms by remember { mutableStateOf<List<Room>>(emptyList()) }
+
+    LaunchedEffect(key1 = true) {
+        viewModel.roomInfo()
+        viewModel.roomEvent.collect { result ->
+            Log.i("ReservationScreen", "Recibiendo datos de room: $result")
+            // Aquí puedes manejar los datos recibidos
+            rooms = result
+
+        }
+    }
+
     Column (modifier = Modifier
         .fillMaxSize()
-        .padding(20.dp)
+        .padding(innerPadding)
         .background(MaterialTheme.colorScheme.background)
         .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-
-        LaunchedEffect(key1=true) {
-            viewModel.roomEvent.collect(){
-                    result -> Log.i("ReservationScreen", "Recibiendo datos de room: $result")
-
-
-//Aqui falto xdxdxd
-                    navController.navigate(Screens.RoomScreenRoute) {
-                        popUpTo(Screens.LoginScreenRoute) {
-                            inclusive = true
-
-
-                        }
-                    }}
-        }
-
         Row {
             Text(
                 text = "CHOOSE YOUR ROOM",
@@ -258,7 +257,9 @@ fun ReservationScreen(innerPadding: PaddingValues){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = {}
+                onClick = {
+                    navController.navigate(Screens.DetailRegisterScreenRoute)
+                }
 
             ) {
                 Text(
@@ -277,12 +278,12 @@ fun ReservationScreen(innerPadding: PaddingValues){
 
 }
 
-@Preview
-@Composable
-fun ReservationScreenPreview(){
-    HotelAppTheme {
-        ReservationScreen(innerPadding = PaddingValues(20.dp))
-    }
-
-
-}
+//@Preview
+//@Composable
+//fun ReservationScreenPreview(){
+//    HotelAppTheme {
+//        ReservationScreen(innerPadding = PaddingValues(20.dp))
+//    }
+//
+//
+//}

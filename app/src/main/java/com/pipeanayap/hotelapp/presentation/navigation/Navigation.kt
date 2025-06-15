@@ -16,9 +16,8 @@ sealed class Screens(){
     @Serializable
     object MenuScreenRoute : Screens()
 
-
     @Serializable
-    object StatsScreenRoute : Screens()
+    object ReservationScreenRoute : Screens()
 
 
     @Serializable
@@ -26,6 +25,9 @@ sealed class Screens(){
 
     @Serializable
     object  RoomScreenRoute : Screens()
+
+    @Serializable
+    object DetailRegisterScreenRoute : Screens()
 
 
     //Faltar rutas

@@ -1,4 +1,4 @@
-package com.pipeanayap.cryptoapp.presentation.screens.auth
+package com.pipeanayap.hotelapp.presentation.screens.auth
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -229,7 +229,7 @@ fun RegisterScreen(innerPadding: PaddingValues) {
             },
             trailingIcon = {
                 Icon(
-                    imageVector = if(isPasswordVisible) Visibility else Visibility_off,                    contentDescription = "password",
+                imageVector = if(isPasswordVisible) Visibility else Visibility_off,                    contentDescription = "password",
                     modifier = Modifier.clickable {
                         isConfirmedPasswordVisible = !isConfirmedPasswordVisible
 

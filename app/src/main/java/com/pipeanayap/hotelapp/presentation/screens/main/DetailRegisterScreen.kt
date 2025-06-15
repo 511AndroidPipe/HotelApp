@@ -45,15 +45,12 @@ import com.pipeanayap.hotelapp.presentation.ui.theme.DetailRegisterDateColor
 import com.pipeanayap.hotelapp.presentation.ui.theme.Azulito
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
 
-fun main() {
-
-}
-
 @Composable
 fun DetailRegisterScreen(innerPadding: PaddingValues){
     Column(Modifier
         .fillMaxSize()
         .background(DetailRegisterColorBG)
+        .padding(innerPadding)
         .padding(20.dp)
         .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally){
