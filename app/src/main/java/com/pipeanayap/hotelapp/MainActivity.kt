@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
                         RegisterScreen( PaddingValues(20.dp))
                     }
 
+
                     navigation<Screens.MainGraph>(
                         startDestination = Screens.MainScreenRoute
                     ){

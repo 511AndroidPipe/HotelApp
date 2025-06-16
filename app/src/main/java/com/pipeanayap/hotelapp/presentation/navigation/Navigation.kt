@@ -24,6 +24,9 @@ sealed class Screens(){
     @Serializable
     object MainGraph : Screens()
 
+    @Serializable
+    object DetailRegisterScreen : Screens()
+
 
     //Faltar rutas
 
