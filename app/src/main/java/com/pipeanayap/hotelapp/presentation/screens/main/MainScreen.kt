@@ -28,7 +28,9 @@ fun MainScreen() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+
+            ) {
                 items.forEach { item ->
                     NavigationBarItem(
                         selected = selectedScreen == item.route,
@@ -40,6 +42,7 @@ fun MainScreen() {
                             Icon(
                                 imageVector = item.icon,
                                 contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         }
                     )
@@ -57,7 +60,11 @@ fun MainScreen() {
             }
 
             composable<Screens.DetailRegisterScreenRoute> {
-                DetailRegisterScreen(innerPadding)
+                DetailRegisterScreen(innerPadding, navController)
+            }
+
+            composable<Screens.PaymentScreenRoute> {
+                PaymentScreen(innerPadding)
             }
         }
     }

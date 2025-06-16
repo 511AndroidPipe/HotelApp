@@ -56,12 +56,13 @@ import com.pipeanayap.hotelapp.R
 import com.pipeanayap.hotelapp.presentation.Components.Lock
 import com.pipeanayap.hotelapp.presentation.Components.Visibility
 import com.pipeanayap.hotelapp.presentation.Components.Visibility_off
+import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
 import com.pipeanayap.hotelapp.presentation.viewmodels.AuthViewModel
 
 
 @Composable
-fun RegisterScreen(innerPadding: PaddingValues) {
+fun RegisterScreen(navController: NavController) {
     var email by remember {
         mutableStateOf("")
     }
@@ -95,6 +96,21 @@ fun RegisterScreen(innerPadding: PaddingValues) {
 
     var errorMessage by remember {
         mutableStateOf("")
+    }
+
+    // ✅ Esperar el resultado del login
+    LaunchedEffect(Unit) {
+        viewModel.registerEvent.collect {
+            if (it == "User successfully registered") {
+                showErrorDialog = false
+                navController.navigate(Screens.MainScreenRoute) {
+                    popUpTo(Screens.RegisterScreenRoute) { inclusive = true }
+                }
+            } else {
+                showErrorDialog = true
+                errorMessage = it
+            }
+        }
     }
 
     Column(
@@ -274,14 +290,6 @@ fun RegisterScreen(innerPadding: PaddingValues) {
                 text = "Registrarse"
             )
         }
-    }
-}
-
-@Preview
-@Composable
-fun RegisterScreenPreview() {
-    HotelAppTheme {
-        RegisterScreen(PaddingValues(20.dp))
     }
 }
 

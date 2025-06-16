@@ -23,7 +23,7 @@ import com.pipeanayap.hotelapp.presentation.ui.theme.HotelLightGray
 
 @OptIn(ExperimentalMaterial3Api::class) // Necesario para SegmentedButton
 @Composable
-fun PaymentScreen() {
+fun PaymentScreen(innerPadding : PaddingValues) {
     var cardNumber by remember { mutableStateOf("") }
     // Estado para controlar la selección del tipo de tarjeta
     var selectedCardType by remember { mutableStateOf("Debit Card") }
@@ -32,6 +32,7 @@ fun PaymentScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(HotelLightGray)
+            .padding(innerPadding)
             .padding(24.dp)
     ) {
         Row(
@@ -234,8 +235,8 @@ fun PaymentScreen() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PaymentScreenPreview() {
-    PaymentScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PaymentScreenPreview() {
+//    PaymentScreen()
+//}

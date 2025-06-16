@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable<Screens.RegisterScreenRoute> {
-                        RegisterScreen( PaddingValues(20.dp))
+                        RegisterScreen( navController)
                     }
 
                     navigation<Screens.MainGraph>(startDestination = Screens.MainScreenRoute){
