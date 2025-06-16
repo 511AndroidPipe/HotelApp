@@ -66,7 +66,9 @@ fun MainScreen() {
                 arguments = listOf(navArgument("roomId") { type = NavType.StringType })
             ) { backStackEntry ->
                 val roomId = backStackEntry.arguments?.getString("roomId")
-                DetailRegisterScreen(innerPadding, navController, roomId)
+                if (roomId != null) {
+                    DetailRegisterScreen(innerPadding, navController, roomId)
+                }
             }
 
             composable<Screens.PaymentScreenRoute> {

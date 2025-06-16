@@ -40,6 +40,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.pipeanayap.hotelapp.R
 import com.pipeanayap.hotelapp.R.drawable.presidencial1
 import com.pipeanayap.hotelapp.presentation.Components.Account_balance
@@ -51,7 +53,7 @@ import com.pipeanayap.hotelapp.presentation.ui.theme.Azulito
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
 
 @Composable
-fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavController){
+fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavController, roomId:String){
     Column(Modifier
         .fillMaxSize()
         .background(DetailRegisterColorBG)
@@ -63,14 +65,14 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
             Row(Modifier.padding(top=5.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center){
-                Text("PRESIDENCIAL",
+                Text("",
                     Modifier
                         .weight(1f)
                         .padding(start = 5.dp)
                         .padding(end = 5.dp),
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    letterSpacing = 7.sp)
+                    letterSpacing = 5.sp)
 
                 // El Icon Pa
                 Icon(modifier = Modifier.size(40.dp),
@@ -297,14 +299,15 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                         .clip(RoundedCornerShape(60.dp))
                         .border(2.dp, Color.Gray, RoundedCornerShape(60.dp))
                 ) {
-                    Image(
-                        painter = painterResource(presidencial1),
+                    AsyncImage(
+                        model = "https://tuapi.com/ruta/a/la/imagen.jpg",
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxSize()
                             .clip(RoundedCornerShape(60.dp)),
                         contentScale = ContentScale.Crop
                     )
+
                 }
 
                 Spacer(modifier = Modifier.height(4.dp))
@@ -398,8 +401,10 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
 //@Preview
 //@Composable
 //fun DetailRegisterScreenPreview() {
-//    HotelAppTheme {
-//        DetailRegisterScreen(innerPadding = PaddingValues(20.dp))
-//
+//        DetailRegisterScreen(
+//            innerPadding = PaddingValues(20.dp),
+//            navController = rememberNavController()
+//        )
 //    }
 //}
+
