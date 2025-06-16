@@ -37,7 +37,8 @@ private val LightColorScheme = lightColorScheme(
     background = HotelWhite,             // Fondo claro principal
     surface = HotelLightGray,            // Superficies secundarias
     onBackground = TextPrimary,          // Texto principal
-    onSurface = TextPrimary,             // Texto sobre superficie
+    onSurface = TextPrimary              // Texto sobre superficie
+
 )
 
 

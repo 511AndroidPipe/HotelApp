@@ -3,11 +3,13 @@ package com.pipeanayap.hotelapp.presentation.screens.main
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,16 +20,20 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.pipeanayap.hotelapp.presentation.ui.theme.HotelBlue
+import com.pipeanayap.hotelapp.presentation.ui.theme.HotelDarkGray
+import com.pipeanayap.hotelapp.presentation.ui.theme.HotelLightGray
 
 @Composable
 fun PayScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(HotelLightGray)
             .padding(24.dp)
     ) {
         Row(
@@ -35,24 +41,29 @@ fun PayScreen() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack,
+                imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Back Icon"
             )
+            Spacer(modifier = Modifier.weight(1f)) // Empuja el texto al centro
             Text(
                 text = "Payment",
-                style = MaterialTheme.typography.headlineLarge,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.weight(0.8f)
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
+            Spacer(modifier = Modifier.weight(1.2f)) // Compensa visualmente al ícono
         }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = 50.dp)
         ) {
-            Text(text = "Habitation")
+            Text(
+                text = "HABITATION",
+                style = MaterialTheme.typography.labelSmall
+            )
             Icon(
-                imageVector = androidx.compose.material.icons.Icons.Default.Home,
+                imageVector = Icons.Default.Home,
                 contentDescription = "Home Icon",
                 modifier = Modifier.padding(start = 8.dp)
             )
@@ -65,11 +76,12 @@ fun PayScreen() {
             Text(
                 text = "Plus+",
                 style = MaterialTheme.typography.bodyLarge,
+                color = HotelDarkGray,
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = "$300 USD per night",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.labelLarge
             )
         }
 
@@ -79,9 +91,12 @@ fun PayScreen() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = 50.dp)
         ) {
-            Text(text = "Dates")
+            Text(
+                text = "DATES",
+                style = MaterialTheme.typography.labelSmall,
+            )
             Icon(
-                imageVector = androidx.compose.material.icons.Icons.Default.DateRange,
+                imageVector = Icons.Default.DateRange,
                 contentDescription = "calendar Icon",
                 modifier = Modifier.padding(start = 8.dp)
             )
@@ -92,13 +107,14 @@ fun PayScreen() {
             modifier = Modifier.padding(top = 30.dp)
         ) {
             Text(
-                text = "Fry 6 jun - Sat 21 jun",
+                text = "Fri 6 jun - Sat 21 jun",
                 style = MaterialTheme.typography.bodyLarge,
+                color = HotelDarkGray,
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = "$4500 USD per night",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.labelLarge
             )
         }
 
@@ -108,9 +124,12 @@ fun PayScreen() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = 50.dp)
         ) {
-            Text(text = "Services")
+            Text(
+                text = "SERVICES",
+                style = MaterialTheme.typography.labelSmall
+            )
             Icon(
-                imageVector = androidx.compose.material.icons.Icons.Default.Face,
+                imageVector = Icons.Default.Face,
                 contentDescription = "services Icon",
                 modifier = Modifier.padding(start = 8.dp)
             )
@@ -123,11 +142,12 @@ fun PayScreen() {
             Text(
                 text = "Gym",
                 style = MaterialTheme.typography.bodyLarge,
+                color = HotelDarkGray,
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = "$25 USD",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.labelLarge
             )
         }
 
@@ -140,11 +160,13 @@ fun PayScreen() {
             Text(
                 text = "Spa",
                 style = MaterialTheme.typography.bodyLarge,
+                color = HotelDarkGray,
+
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = "$100 USD",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.labelLarge
             )
         }
 
@@ -157,17 +179,17 @@ fun PayScreen() {
             Text(
                 text = "KidsClub",
                 style = MaterialTheme.typography.bodyLarge,
+                color = HotelDarkGray,
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = "$200 USD",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.labelLarge
             )
         }
 
         DashedDivider()
 
-        // Espaciador para empujar el Total hacia el fondo
         Spacer(modifier = Modifier.weight(1f))
 
         Row(
@@ -178,27 +200,29 @@ fun PayScreen() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Total",
-                style = MaterialTheme.typography.bodyLarge,
+                text = "TOTAL",
+                style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = "$100 USD",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.labelLarge
             )
+
         }
 
 
-        // Botón de pago
         Button(
             onClick = { /* Acción de pago */ },
             modifier = Modifier
-                .weight(0.6f)
+                .fillMaxWidth()
                 .padding(vertical = 16.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = HotelBlue)
         ) {
             Text(
                 text = "Credit/Debit Card",
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
@@ -215,7 +239,7 @@ fun DashedDivider() {
             .padding(vertical = 6.dp)
     ) {
         drawLine(
-            color = Color.Gray,
+            color = Color.Black,
             start = Offset(0f, 0f),
             end = Offset(size.width, 0f),
             strokeWidth = 2f,

@@ -19,7 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.pipeanayap.cryptoapp.presentation.screens.auth.RegisterScreen
+import com.pipeanayap.hotelapp.presentation.screens.auth.RegisterScreen
 import com.pipeanayap.hotelapp.presentation.screens.main.DetailRegisterScreen
 import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.screens.auth.LoginScreen
@@ -42,16 +42,13 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable<Screens.RegisterScreenRoute> {
-                        RegisterScreen( PaddingValues(20.dp))
+                        RegisterScreen( navController)
                     }
 
-
-                    navigation<Screens.MainGraph>(
-                        startDestination = Screens.MainScreenRoute
-                    ){
+                    navigation<Screens.MainGraph>(startDestination = Screens.MainScreenRoute){
                         composable<Screens.MainScreenRoute> {
                             MainScreen()
-                        }
+                            }
                     }
                 }
             }

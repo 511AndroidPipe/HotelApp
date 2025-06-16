@@ -49,78 +49,52 @@ import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.viewmodels.AuthViewModel
 
 @Composable
-fun LoginScreen(navController: NavController){
-    var email by remember {
-        mutableStateOf("")
-    }
-    val viewModel : AuthViewModel = hiltViewModel()
-    var password by remember {
-        mutableStateOf("")
-    }
-    var isPasswordVisible by remember {
-        mutableStateOf(false)
-    }
+fun LoginScreen(navController: NavController) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var isPasswordVisible by remember { mutableStateOf(false) }
 
-    var showErrorDialog by remember {
-        mutableStateOf(false)
-    }
+    var showErrorDialog by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
 
-    var errorMessage by remember {
-        mutableStateOf("")
-    }
+    val viewModel: AuthViewModel = hiltViewModel()
 
-    LaunchedEffect(1) {
-        viewModel.loginEvent.collect{
-            if(it != "Login successful"){
-                showErrorDialog = true
-                errorMessage = it
-            }else{
+    // ✅ Esperar el resultado del login
+    LaunchedEffect(Unit) {
+        viewModel.loginEvent.collect { result ->
+            if (result == "Login successful") {
                 showErrorDialog = false
-//                //Mandamos al login
-//                navController.navigate(Screens.MainScreemRoute){
-//                    popUpTo(Screens.RegisterScreenRoute){
-//                        inclusive = true
-//                    }
-//                }
+                navController.navigate(Screens.MainScreenRoute) {
+                    popUpTo(Screens.LoginScreenRoute) { inclusive = true }
+                }
+            } else {
+                showErrorDialog = true
+                errorMessage = result
             }
         }
     }
-    if(showErrorDialog){
 
+    if (showErrorDialog) {
         AlertDialog(
-            onDismissRequest = {
-                showErrorDialog = false
-            },
+            onDismissRequest = { showErrorDialog = false },
             confirmButton = {
-                TextButton(
-                    onClick = {
-                        showErrorDialog = false
-                    }
-                ) {
-                    Text(
-                        text = "Aceptar"
-                    )
+                TextButton(onClick = { showErrorDialog = false }) {
+                    Text("Aceptar")
                 }
             },
-            title = {
-                Text(
-                    text = "Error"
-                )
-            },
-            text = {
-                Text(
-                    text = "La contraseña o tu correo estan incorrectos, intenta de nuevo"
-                )
-            }
+            title = { Text("Error") },
+            text = { Text("La contraseña o tu correo están incorrectos, intenta de nuevo.") }
         )
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).padding(24.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //Titulo de la app
         Text(
             modifier = Modifier.padding(bottom = 20.dp),
             text = stringResource(R.string.app_name),
@@ -128,79 +102,71 @@ fun LoginScreen(navController: NavController){
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold,
             letterSpacing = 5.sp
-
         )
 
         Image(
             painter = painterResource(R.drawable.logo_worldwide),
             contentDescription = "Login",
-            modifier = Modifier.size(185.dp).padding(bottom = 20.dp),
+            modifier = Modifier
+                .size(185.dp)
+                .padding(bottom = 20.dp),
             contentScale = ContentScale.Crop
         )
-        //Textfield para el correo
+
         OutlinedTextField(
             value = email,
-            onValueChange = { email = it},
-            leadingIcon = { Icon(
-                imageVector = Icons.Default.Email,
-                contentDescription = "email"
-            ) },
-            placeholder = {
-                Text(
-                    text = "Correo electronico"
-                )
+            onValueChange = { email = it },
+            leadingIcon = {
+                Icon(Icons.Default.Email, contentDescription = "email")
             },
+            placeholder = { Text("Correo electrónico") },
             shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
         )
-        //Text field de la contraseña
+
         OutlinedTextField(
             value = password,
-            onValueChange = { password = it},
-            leadingIcon = { Icon(
-                imageVector = Lock,
-                contentDescription = "password"
-            ) },
-            trailingIcon = { Icon(
-                imageVector = if(isPasswordVisible) Visibility else Visibility_off,
-                contentDescription = "password",
-                modifier = Modifier.clickable {
-                    isPasswordVisible = !isPasswordVisible
-
-                }
-            ) },
-            placeholder = {
-                Text(
-                    text = "Contraseña"
+            onValueChange = { password = it },
+            leadingIcon = {
+                Icon(com.pipeanayap.hotelapp.presentation.Components.Lock, contentDescription = "password")
+            },
+            trailingIcon = {
+                Icon(
+                    imageVector = if (isPasswordVisible)
+                        com.pipeanayap.hotelapp.presentation.Components.Visibility
+                    else
+                        com.pipeanayap.hotelapp.presentation.Components.Visibility_off,
+                    contentDescription = "toggle password",
+                    modifier = Modifier.clickable { isPasswordVisible = !isPasswordVisible }
                 )
             },
+            placeholder = { Text("Contraseña") },
             shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
-            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
+            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
         )
-        //Button para iniciar sesion
+
+        // ✅ Ahora el botón solo llama a login:
         Button(
-            onClick = {
-                navController.navigate(Screens.MainScreenRoute){
-                    popUpTo(Screens.LoginScreenRoute) { inclusive = true }
-                }
-                viewModel.login(email, password)
-            },
-            modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)
-        ){
-            Text(
-                text = "Iniciar sesion"
-            )
+            onClick = { viewModel.login(email, password) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 20.dp)
+        ) {
+            Text("Iniciar sesión")
         }
-        //Texto para crear una cuenta nueva
+
         Text(
-            text = buildAnnotatedString {
-                withStyle(style = SpanStyle(MaterialTheme.colorScheme.onBackground)){
+            buildAnnotatedString {
+                withStyle(SpanStyle(MaterialTheme.colorScheme.onBackground)) {
                     append("¿No tienes una cuenta? ")
                 }
                 pushStyle(SpanStyle(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold))
                 append("Crea una")
-
             },
             modifier = Modifier.clickable {
                 navController.navigate(Screens.RegisterScreenRoute)
