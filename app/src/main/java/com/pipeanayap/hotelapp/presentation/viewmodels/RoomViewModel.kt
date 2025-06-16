@@ -37,6 +37,10 @@ class RoomViewModel @Inject constructor(
         }
     }
 
+    fun roomByiD(){
+
+    }
+
 
 
 }
