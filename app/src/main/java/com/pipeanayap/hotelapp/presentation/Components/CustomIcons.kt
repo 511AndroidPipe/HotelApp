@@ -519,3 +519,361 @@ public val Bitcoin: ImageVector
     }
 
 private var _Bitcoin: ImageVector? = null
+
+
+val Account_balance: ImageVector
+    get() {
+        if (_Account_balance != null) return _Account_balance!!
+
+        _Account_balance = ImageVector.Builder(
+            name = "Account_balance",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF000000))
+            ) {
+                moveTo(200f, 680f)
+                verticalLineToRelative(-280f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(280f)
+                close()
+                moveToRelative(240f, 0f)
+                verticalLineToRelative(-280f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(280f)
+                close()
+                moveTo(80f, 840f)
+                verticalLineToRelative(-80f)
+                horizontalLineToRelative(800f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(600f, -160f)
+                verticalLineToRelative(-280f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(280f)
+                close()
+                moveTo(80f, 320f)
+                verticalLineToRelative(-80f)
+                lineToRelative(400f, -200f)
+                lineToRelative(400f, 200f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(178f, -80f)
+                horizontalLineToRelative(444f)
+                close()
+                moveToRelative(0f, 0f)
+                horizontalLineToRelative(444f)
+                lineTo(480f, 130f)
+                close()
+            }
+        }.build()
+
+        return _Account_balance!!
+    }
+
+private var _Account_balance: ImageVector? = null
+
+
+
+val EditCalendar: ImageVector
+    get() {
+        if (_editCalendar != null) return _editCalendar!!
+
+        _editCalendar = ImageVector.Builder(
+            name = "EditCalendar",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black)
+            ) {
+                moveTo(200f, 880f)
+                quadToRelative(-33f, 0f, -56.5f, -23.5f)
+                reflectiveQuadTo(120f, 800f)
+                verticalLineToRelative(-560f)
+                quadToRelative(0f, -33f, 23.5f, -56.5f)
+                reflectiveQuadTo(200f, 160f)
+                horizontalLineToRelative(40f)
+                verticalLineToRelative(-80f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(80f)
+                horizontalLineToRelative(320f)
+                verticalLineToRelative(-80f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(80f)
+                horizontalLineToRelative(40f)
+                quadToRelative(33f, 0f, 56.5f, 23.5f)
+                reflectiveQuadTo(840f, 240f)
+                verticalLineToRelative(200f)
+                horizontalLineToRelative(-80f)
+                verticalLineToRelative(-40f)
+                horizontalLineTo(200f)
+                verticalLineToRelative(400f)
+                horizontalLineToRelative(280f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(0f, -560f)
+                horizontalLineToRelative(560f)
+                verticalLineToRelative(-80f)
+                horizontalLineTo(200f)
+                close()
+                moveTo(560f, 880f)
+                verticalLineToRelative(-123f)
+                lineToRelative(221f, -220f)
+                quadToRelative(9f, -9f, 20f, -13f)
+                reflectiveQuadToRelative(22f, -4f)
+                quadToRelative(12f, 0f, 23f, 4.5f)
+                reflectiveQuadToRelative(20f, 13.5f)
+                lineToRelative(37f, 37f)
+                quadToRelative(8f, 9f, 12.5f, 20f)
+                reflectiveQuadToRelative(4.5f, 22f)
+                reflectiveQuadToRelative(-4f, 22.5f)
+                reflectiveQuadToRelative(-13f, 20.5f)
+                lineTo(683f, 880f)
+                close()
+                moveToRelative(300f, -263f)
+                lineToRelative(-37f, -37f)
+                close()
+                moveTo(620f, 820f)
+                horizontalLineToRelative(38f)
+                lineToRelative(121f, -122f)
+                lineToRelative(-18f, -19f)
+                lineToRelative(-19f, -18f)
+                lineToRelative(-122f, 121f)
+                close()
+                moveToRelative(141f, -141f)
+                lineToRelative(-19f, -18f)
+                lineToRelative(37f, 37f)
+                close()
+            }
+        }.build()
+
+        return _editCalendar!!
+    }
+
+private var _editCalendar: ImageVector? = null
+
+val BedDouble: ImageVector
+    get() {
+        if (_BedDouble != null) return _BedDouble!!
+
+        _BedDouble = ImageVector.Builder(
+            name = "BedDouble",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 24f,
+            viewportHeight = 24f
+        ).apply {
+            path(
+                stroke = SolidColor(Color.Black),
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round
+            ) {
+                moveTo(2f, 20f)
+                verticalLineToRelative(-8f)
+                arcToRelative(2f, 2f, 0f, false, true, 2f, -2f)
+                horizontalLineToRelative(16f)
+                arcToRelative(2f, 2f, 0f, false, true, 2f, 2f)
+                verticalLineToRelative(8f)
+                moveTo(4f, 10f)
+                verticalLineTo(6f)
+                arcToRelative(2f, 2f, 0f, false, true, 2f, -2f)
+                horizontalLineToRelative(12f)
+                arcToRelative(2f, 2f, 0f, false, true, 2f, 2f)
+                verticalLineToRelative(4f)
+                moveToRelative(-8f, -6f)
+                verticalLineToRelative(6f)
+                moveTo(2f, 18f)
+                horizontalLineToRelative(20f)
+            }
+        }.build()
+
+        return _BedDouble!!
+    }
+
+private var _BedDouble: ImageVector? = null
+
+
+val HandPlatter: ImageVector
+    get() {
+        if (_HandPlatter != null) return _HandPlatter!!
+
+        _HandPlatter = ImageVector.Builder(
+            name = "HandPlatter",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 24f,
+            viewportHeight = 24f
+        ).apply {
+            path(
+                stroke = SolidColor(Color.Black),
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round
+            ) {
+                moveTo(12f, 3f)
+                verticalLineTo(2f)
+                moveToRelative(-7f, 8f)
+                arcToRelative(7.1f, 7.1f, 0f, false, true, 14f, 0f)
+                moveTo(4f, 10f)
+                horizontalLineToRelative(16f)
+                moveTo(2f, 14f)
+                horizontalLineToRelative(12f)
+                arcToRelative(2f, 2f, 0f, true, true, 0f, 4f)
+                horizontalLineToRelative(-2f)
+            }
+            path(
+                stroke = SolidColor(Color.Black),
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round
+            ) {
+                moveToRelative(15.4f, 17.4f)
+                lineToRelative(3.2f, -2.8f)
+                arcToRelative(2f, 2f, 0f, false, true, 2.8f, 2.9f)
+                lineToRelative(-3.6f, 3.3f)
+                curveToRelative(-0.7f, 0.8f, -1.7f, 1.2f, -2.8f, 1.2f)
+                horizontalLineToRelative(-4f)
+                curveToRelative(-1.1f, 0f, -2.1f, -0.4f, -2.8f, -1.2f)
+                lineTo(5f, 18f)
+                moveToRelative(0f, -4f)
+                verticalLineToRelative(7f)
+                horizontalLineTo(2f)
+            }
+        }.build()
+
+        return _HandPlatter!!
+    }
+
+private var _HandPlatter: ImageVector? = null
+
+
+val People: ImageVector
+    get() {
+        if (_People != null) return _People!!
+
+        _People = ImageVector.Builder(
+            name = "People",
+            defaultWidth = 16.dp,
+            defaultHeight = 16.dp,
+            viewportWidth = 16f,
+            viewportHeight = 16f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black)
+            ) {
+                moveTo(15f, 14f)
+                reflectiveCurveToRelative(1f, 0f, 1f, -1f)
+                reflectiveCurveToRelative(-1f, -4f, -5f, -4f)
+                reflectiveCurveToRelative(-5f, 3f, -5f, 4f)
+                reflectiveCurveToRelative(1f, 1f, 1f, 1f)
+                close()
+                moveToRelative(-7.978f, -1f)
+                lineTo(7f, 12.996f)
+                curveToRelative(0.001f, -0.264f, 0.167f, -1.03f, 0.76f, -1.72f)
+                curveTo(8.312f, 10.629f, 9.282f, 10f, 11f, 10f)
+                curveToRelative(1.717f, 0f, 2.687f, 0.63f, 3.24f, 1.276f)
+                curveToRelative(0.593f, 0.69f, 0.758f, 1.457f, 0.76f, 1.72f)
+                lineToRelative(-0.008f, 0.002f)
+                lineToRelative(-0.014f, 0.002f)
+                close()
+                moveTo(11f, 7f)
+                arcToRelative(2f, 2f, 0f, true, false, 0f, -4f)
+                arcToRelative(2f, 2f, 0f, false, false, 0f, 4f)
+                moveToRelative(3f, -2f)
+                arcToRelative(3f, 3f, 0f, true, true, -6f, 0f)
+                arcToRelative(3f, 3f, 0f, false, true, 6f, 0f)
+                moveTo(6.936f, 9.28f)
+                arcToRelative(6f, 6f, 0f, false, false, -1.23f, -0.247f)
+                arcTo(7f, 7f, 0f, false, false, 5f, 9f)
+                curveToRelative(-4f, 0f, -5f, 3f, -5f, 4f)
+                quadToRelative(0f, 1f, 1f, 1f)
+                horizontalLineToRelative(4.216f)
+                arcTo(2.24f, 2.24f, 0f, false, true, 5f, 13f)
+                curveToRelative(0f, -1.01f, 0.377f, -2.042f, 1.09f, -2.904f)
+                curveToRelative(0.243f, -0.294f, 0.526f, -0.569f, 0.846f, -0.816f)
+                moveTo(4.92f, 10f)
+                arcTo(5.5f, 5.5f, 0f, false, false, 4f, 13f)
+                horizontalLineTo(1f)
+                curveToRelative(0f, -0.26f, 0.164f, -1.03f, 0.76f, -1.724f)
+                curveToRelative(0.545f, -0.636f, 1.492f, -1.256f, 3.16f, -1.275f)
+                close()
+                moveTo(1.5f, 5.5f)
+                arcToRelative(3f, 3f, 0f, true, true, 6f, 0f)
+                arcToRelative(3f, 3f, 0f, false, true, -6f, 0f)
+                moveToRelative(3f, -2f)
+                arcToRelative(2f, 2f, 0f, true, false, 0f, 4f)
+                arcToRelative(2f, 2f, 0f, false, false, 0f, -4f)
+            }
+        }.build()
+
+        return _People!!
+    }
+
+private var _People: ImageVector? = null
+
+
+
+val Banknote: ImageVector
+    get() {
+        if (_Banknote != null) return _Banknote!!
+
+        _Banknote = ImageVector.Builder(
+            name = "Banknote",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 24f,
+            viewportHeight = 24f
+        ).apply {
+            path(
+                stroke = SolidColor(Color.Black),
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round
+            ) {
+                moveTo(4f, 6f)
+                horizontalLineTo(20f)
+                arcTo(2f, 2f, 0f, false, true, 22f, 8f)
+                verticalLineTo(16f)
+                arcTo(2f, 2f, 0f, false, true, 20f, 18f)
+                horizontalLineTo(4f)
+                arcTo(2f, 2f, 0f, false, true, 2f, 16f)
+                verticalLineTo(8f)
+                arcTo(2f, 2f, 0f, false, true, 4f, 6f)
+                close()
+            }
+            path(
+                stroke = SolidColor(Color.Black),
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round
+            ) {
+                moveTo(14f, 12f)
+                arcTo(2f, 2f, 0f, false, true, 12f, 14f)
+                arcTo(2f, 2f, 0f, false, true, 10f, 12f)
+                arcTo(2f, 2f, 0f, false, true, 14f, 12f)
+                close()
+            }
+            path(
+                stroke = SolidColor(Color.Black),
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round
+            ) {
+                moveTo(6f, 12f)
+                horizontalLineToRelative(0.01f)
+                moveTo(18f, 12f)
+                horizontalLineToRelative(0.01f)
+            }
+        }.build()
+
+        return _Banknote!!
+    }
+
+private var _Banknote: ImageVector? = null
