@@ -8,5 +8,5 @@ data class Room(
     val type: String,
     val status: String,
     val price: Int,
-    val services: List<String>
+    val services: List<Service>
 )
