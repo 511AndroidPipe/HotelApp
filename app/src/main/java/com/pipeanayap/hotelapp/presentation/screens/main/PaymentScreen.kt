@@ -18,12 +18,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelLightGray
 
 
 @OptIn(ExperimentalMaterial3Api::class) // Necesario para SegmentedButton
 @Composable
-fun PaymentScreen(innerPadding : PaddingValues) {
+fun PaymentScreen(innerPadding : PaddingValues, navController: NavController) {
     var cardNumber by remember { mutableStateOf("") }
     // Estado para controlar la selección del tipo de tarjeta
     var selectedCardType by remember { mutableStateOf("Debit Card") }

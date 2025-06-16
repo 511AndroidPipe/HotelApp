@@ -24,12 +24,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelBlue
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelDarkGray
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelLightGray
+import com.pipeanayap.hotelapp.presentation.navigation.Screens
 
 @Composable
-fun PayScreen() {
+fun PayScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -213,7 +215,7 @@ fun PayScreen() {
 
 
         Button(
-            onClick = { /* Acción de pago */ },
+            onClick = {navController.navigate(Screens.PaymentScreen.route)},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
@@ -248,8 +250,4 @@ fun DashedDivider() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PayScreenPreview() {
-    PayScreen()
-}
+
