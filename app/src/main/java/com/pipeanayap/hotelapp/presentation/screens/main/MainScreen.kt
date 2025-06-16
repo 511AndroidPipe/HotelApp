@@ -71,10 +71,6 @@ fun MainScreen() {
                 }
             }
 
-            composable<Screens.PaymentScreenRoute> {
-                PaymentScreen(innerPadding)
-            }
-
 
         }
     }

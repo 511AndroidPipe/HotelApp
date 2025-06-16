@@ -1,39 +1,23 @@
 package com.pipeanayap.hotelapp.presentation.screens.main
 
+import android.app.DatePickerDialog
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.materialIcon
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.ModifierInfo
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,208 +34,301 @@ import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.ui.theme.DetailRegisterColorBG
 import com.pipeanayap.hotelapp.presentation.ui.theme.DetailRegisterDateColor
 import com.pipeanayap.hotelapp.presentation.ui.theme.Azulito
-import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
+import java.util.Calendar
 
 @Composable
-fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavController, roomId:String){
-    Column(Modifier
-        .fillMaxSize()
-        .background(DetailRegisterColorBG)
-        .padding(innerPadding)
-        .padding(20.dp)
-        .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally){
+fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavController, roomId: String? = null) {
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
 
-            Row(Modifier.padding(top=5.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center){
-                Text("",
-                    Modifier
-                        .weight(1f)
-                        .padding(start = 5.dp)
-                        .padding(end = 5.dp),
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 5.sp)
+    // Estados para Check-In
+    var checkInYear by remember { mutableStateOf(calendar.get(Calendar.YEAR)) }
+    var checkInMonth by remember { mutableStateOf(calendar.get(Calendar.MONTH)) }
+    var checkInDay by remember { mutableStateOf(calendar.get(Calendar.DAY_OF_MONTH)) }
+    var showCheckInPicker by remember { mutableStateOf(false) }
 
-                // El Icon Pa
-                Icon(modifier = Modifier.size(40.dp),
-                    imageVector = Account_balance,
-                    contentDescription = null)
-            }
+    // Estados para Check-Out
+    var checkOutYear by remember { mutableStateOf(calendar.get(Calendar.YEAR)) }
+    var checkOutMonth by remember { mutableStateOf(calendar.get(Calendar.MONTH)) }
+    var checkOutDay by remember { mutableStateOf(calendar.get(Calendar.DAY_OF_MONTH)) }
+    var showCheckOutPicker by remember { mutableStateOf(false) }
 
-            // Esta box es para la imagen
-            Box(
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(DetailRegisterColorBG)
+            .padding(innerPadding)
+            .padding(20.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Row(
+            Modifier.padding(top = 5.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                "PRESIDENTIAL",
+                Modifier
+                    .weight(1f)
+                    .padding(start = 5.dp)
+                    .padding(end = 5.dp),
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 5.sp
+            )
+            Icon(
+                modifier = Modifier.size(40.dp),
+                imageVector = Account_balance,
+                contentDescription = null
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .fillMaxWidth()
+                .height(130.dp)
+                .clip(RoundedCornerShape(40.dp))
+                .border(3.dp, Color.DarkGray, RoundedCornerShape(40.dp))
+        ) {
+            Image(
+                painter = painterResource(R.drawable.presidencial1),
+                contentDescription = null,
                 modifier = Modifier
-                    .padding(top = 20.dp)
-                    .fillMaxWidth()
-                    .height(130.dp)
-                    .clip(RoundedCornerShape(40.dp))
-                    .border(3.dp, Color.DarkGray, RoundedCornerShape(40.dp))
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.presidencial1),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(40.dp)), // también se recorta
-                    contentScale = ContentScale.Crop
-                )
-            }
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(40.dp)),
+                contentScale = ContentScale.Crop
+            )
+        }
 
-            // Box del boton de las dates
-            Row(Modifier.padding(top=5.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center){
-                Box(Modifier
-                    .padding(top = 30.dp)
+        // Row para los dos DatePickers
+        Row(
+            Modifier.padding(top = 20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            // Check-In
+            Box(
+                Modifier
+                    .padding(top = 15.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(DetailRegisterDateColor)
-                    .width(130.dp)
-                    .height(30.dp)){
-                    Row(Modifier
+                    .width(160.dp)
+                    .height(30.dp)
+                    .clickable { showCheckInPicker = true }
+            ) {
+                Row(
+                    Modifier
                         .padding(6.dp)
                         .padding(start = 5.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center){
-                        Text("View Dates", Modifier.weight(1f),
-                            style = MaterialTheme.typography.titleSmall)
-
-                        // Otro Icon Pa
-                        Icon(modifier = Modifier
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        "Llegada: %02d/%02d/%04d".format(checkInDay, checkInMonth + 1, checkInYear),
+                        Modifier.weight(1f),
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                    Icon(
+                        modifier = Modifier
                             .weight(0.5f)
                             .size(20.dp),
-                            imageVector = EditCalendar,
-                            contentDescription = null)
-
-                    }
+                        imageVector = EditCalendar,
+                        contentDescription = null
+                    )
                 }
             }
+            Spacer(modifier = Modifier.width(16.dp))
+            // Check-Out
+            Box(
+                Modifier
+                    .padding(top = 15.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(DetailRegisterDateColor)
+                    .width(160.dp)
+                    .height(30.dp)
+                    .clickable { showCheckOutPicker = true }
+            ) {
+                Row(
+                    Modifier
+                        .padding(6.dp)
+                        .padding(start = 5.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        "Salida: %02d/%02d/%04d".format(checkOutDay, checkOutMonth + 1, checkOutYear),
+                        Modifier.weight(1f),
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                    Icon(
+                        modifier = Modifier
+                            .weight(0.5f)
+                            .size(20.dp),
+                        imageVector = EditCalendar,
+                        contentDescription = null
+                    )
+                }
+            }
+        }
 
-            // Aqui va la funcionalidad del calendario
-            Icon(modifier = Modifier
+        // DatePickerDialog para Check-In
+        if (showCheckInPicker) {
+            DatePickerDialog(
+                context,
+                { _, year, month, dayOfMonth ->
+                    checkInYear = year
+                    checkInMonth = month
+                    checkInDay = dayOfMonth
+                    showCheckInPicker = false
+                },
+                checkInYear,
+                checkInMonth,
+                checkInDay
+            ).apply {
+                setOnCancelListener { showCheckInPicker = false }
+            }.show()
+        }
+
+        // DatePickerDialog para Check-Out
+        if (showCheckOutPicker) {
+            DatePickerDialog(
+                context,
+                { _, year, month, dayOfMonth ->
+                    checkOutYear = year
+                    checkOutMonth = month
+                    checkOutDay = dayOfMonth
+                    showCheckOutPicker = false
+                },
+                checkOutYear,
+                checkOutMonth,
+                checkOutDay
+            ).apply {
+                setOnCancelListener { showCheckOutPicker = false }
+            }.show()
+        }
+
+        Icon(
+            modifier = Modifier
                 .padding(top = 50.dp)
                 .size(120.dp),
-                imageVector = EditCalendar,
-                contentDescription = null)
+            imageVector = EditCalendar,
+            contentDescription = null
+        )
 
-            // SERVICES
-            Text("SERVICES",
-                Modifier.padding(top=50.dp)
-                ,style = MaterialTheme.typography.titleLarge
-                ,letterSpacing = 7.sp)
-
-            // Boxes de los services | Linea de arriba
-            Row(Modifier.padding(top = 10.dp),
-                horizontalArrangement = Arrangement.SpaceBetween){
-
-                // OutdoorPool
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .width(75.dp)
-                            .height(75.dp)
-                            .clip(RoundedCornerShape(60.dp))
-                            .border(2.dp, Color.DarkGray, RoundedCornerShape(60.dp))
-                    ) {
-                        Image(
-                            painter = painterResource(presidencial1),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .clip(RoundedCornerShape(60.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(4.dp))
-
-                    Text(
-                        text = "Outdoor Pool",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontSize = 12.sp,
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(30.dp))
-
-                //Gym
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .width(75.dp)
-                            .height(75.dp)
-                            .clip(RoundedCornerShape(60.dp))
-                            .border(2.dp, Color.Gray, RoundedCornerShape(60.dp))
-                    ) {
-                        Image(
-                            painter = painterResource(presidencial1),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .clip(RoundedCornerShape(60.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(4.dp))
-
-                    Text(
-                        text = "Gym",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontSize = 12.sp,
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Spacer(modifier = Modifier.width(30.dp))
-
-                //Spa
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .width(75.dp)
-                            .height(75.dp)
-                            .clip(RoundedCornerShape(60.dp))
-                            .border(2.dp, Color.Gray, RoundedCornerShape(60.dp))
-                    ) {
-                        Image(
-                            painter = painterResource(presidencial1),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .clip(RoundedCornerShape(60.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(4.dp))
-
-                    Text(
-                        text = "Spa",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontSize = 12.sp,
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
+        Text(
+            "SERVICES",
+            Modifier.padding(top = 50.dp),
+            style = MaterialTheme.typography.titleLarge,
+            letterSpacing = 7.sp
+        )
 
         // Boxes de los services | Linea de arriba
-        Row(Modifier.padding(top = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween){
+        Row(
+            Modifier.padding(top = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            // OutdoorPool
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(top = 10.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(75.dp)
+                        .height(75.dp)
+                        .clip(RoundedCornerShape(60.dp))
+                        .border(2.dp, Color.DarkGray, RoundedCornerShape(60.dp))
+                ) {
+                    Image(
+                        painter = painterResource(presidencial1),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(60.dp)),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Outdoor Pool",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontSize = 12.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Spacer(modifier = Modifier.width(30.dp))
+            // Gym
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(top = 10.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(75.dp)
+                        .height(75.dp)
+                        .clip(RoundedCornerShape(60.dp))
+                        .border(2.dp, Color.Gray, RoundedCornerShape(60.dp))
+                ) {
+                    Image(
+                        painter = painterResource(presidencial1),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(60.dp)),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Gym",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontSize = 12.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Spacer(modifier = Modifier.width(30.dp))
+            // Spa
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(top = 10.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(75.dp)
+                        .height(75.dp)
+                        .clip(RoundedCornerShape(60.dp))
+                        .border(2.dp, Color.Gray, RoundedCornerShape(60.dp))
+                ) {
+                    Image(
+                        painter = painterResource(presidencial1),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(60.dp)),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Spa",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontSize = 12.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
 
+        // Boxes de los services | Linea de abajo
+        Row(
+            Modifier.padding(top = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             // OpenBar
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -273,9 +350,7 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                         contentScale = ContentScale.Crop
                     )
                 }
-
                 Spacer(modifier = Modifier.height(4.dp))
-
                 Text(
                     text = "OpenBar",
                     style = MaterialTheme.typography.bodyMedium,
@@ -284,10 +359,8 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                     fontWeight = FontWeight.Bold
                 )
             }
-
             Spacer(modifier = Modifier.width(30.dp))
-
-            //KidsClub
+            // KidsClub
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(top = 10.dp)
@@ -307,11 +380,8 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                             .clip(RoundedCornerShape(60.dp)),
                         contentScale = ContentScale.Crop
                     )
-
                 }
-
                 Spacer(modifier = Modifier.height(4.dp))
-
                 Text(
                     text = "KidsClub",
                     style = MaterialTheme.typography.bodyMedium,
@@ -321,8 +391,7 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                 )
             }
             Spacer(modifier = Modifier.width(30.dp))
-
-            //MidnightShow
+            // MidnightShow
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(top = 10.dp)
@@ -343,9 +412,7 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                         contentScale = ContentScale.Crop
                     )
                 }
-
                 Spacer(modifier = Modifier.height(4.dp))
-
                 Text(
                     text = "MidnightShow",
                     style = MaterialTheme.typography.bodyMedium,
@@ -357,22 +424,20 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
         }
 
         // Row para el total y el check in
-
-        Row(Modifier.padding(top = 50.dp)){
-
-            //TOTAL
-            Box(Modifier
-                .height(30.dp)
-                .width(120.dp)
-                .clip(RoundedCornerShape(60.dp))
-                .border(
-                    2.dp, Color.Gray, RoundedCornerShape(60.dp)
-                ),
-                contentAlignment = Alignment.Center){
-                Text("$ TOTAL")}
-
+        Row(Modifier.padding(top = 50.dp)) {
+            Box(
+                Modifier
+                    .height(30.dp)
+                    .width(120.dp)
+                    .clip(RoundedCornerShape(60.dp))
+                    .border(
+                        2.dp, Color.Gray, RoundedCornerShape(60.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("$ TOTAL")
+            }
             Spacer(modifier = Modifier.width(50.dp))
-
             Button(
                 onClick = {
                     navController.navigate(Screens.PaymentScreenRoute)
@@ -390,21 +455,16 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                     color = Color.White
                 )
             }
-
         }
-
-
-        }
+    }
 }
 
-
-//@Preview
-//@Composable
-//fun DetailRegisterScreenPreview() {
-//        DetailRegisterScreen(
-//            innerPadding = PaddingValues(20.dp),
-//            navController = rememberNavController()
-//        )
-//    }
-//}
-
+@Preview
+@Composable
+fun DetailRegisterScreenPreview() {
+    DetailRegisterScreen(
+        innerPadding = PaddingValues(20.dp),
+        navController = rememberNavController(),
+        roomId = "1"
+    )
+}

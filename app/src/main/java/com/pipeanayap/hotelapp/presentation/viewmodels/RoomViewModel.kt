@@ -3,6 +3,7 @@ package com.pipeanayap.hotelapp.presentation.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pipeanayap.hotelapp.domain.models.Room
 import com.pipeanayap.hotelapp.services.RoomService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
