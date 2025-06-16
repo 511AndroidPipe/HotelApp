@@ -209,7 +209,6 @@ fun ReservationScreen(innerPadding: PaddingValues, navController: NavController)
             ) {
                 Button(
                     onClick = {
-                        // Aquí puedes pasar el ID si lo necesitas
                         navController.navigate("${Screens.DetailRegisterScreenRoute}/${room.id}")                    }
                 ) {
                     Text(

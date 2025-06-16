@@ -53,7 +53,7 @@ import com.pipeanayap.hotelapp.presentation.ui.theme.Azulito
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
 
 @Composable
-fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavController){
+fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavController, roomId:String){
     Column(Modifier
         .fillMaxSize()
         .background(DetailRegisterColorBG)
@@ -398,14 +398,13 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
 }
 
 
-@Preview
-@Composable
-fun DetailRegisterScreenPreview() {
-    HotelAppTheme {
-        DetailRegisterScreen(
-            innerPadding = PaddingValues(20.dp),
-            navController = rememberNavController()
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun DetailRegisterScreenPreview() {
+//        DetailRegisterScreen(
+//            innerPadding = PaddingValues(20.dp),
+//            navController = rememberNavController()
+//        )
+//    }
+//}
 
