@@ -62,7 +62,7 @@ fun MainScreen() {
             }
 
             composable(
-                "${Screens.DetailRegisterScreenRoute::class.simpleName}/{roomId}",
+                "${Screens.DetailRegisterScreenRoute}/{roomId}",
                 arguments = listOf(navArgument("roomId") { type = NavType.StringType })
             ) { backStackEntry ->
                 val roomId = backStackEntry.arguments?.getString("roomId")
@@ -72,10 +72,8 @@ fun MainScreen() {
             }
 
             composable<Screens.PaymentScreenRoute> {
-                PaymentScreen(innerPadding)
+                PaymentScreen(innerPadding, navController)
             }
-
-
         }
     }
 }

@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.pipeanayap.hotelapp.R
+import com.pipeanayap.hotelapp.domain.models.Room
 import com.pipeanayap.hotelapp.presentation.Components.Banknote
 import com.pipeanayap.hotelapp.presentation.Components.BedDouble
 import com.pipeanayap.hotelapp.presentation.Components.HandPlatter
@@ -36,11 +37,11 @@ fun ReservationScreen(innerPadding: PaddingValues, navController: NavController)
 
     LaunchedEffect(Unit) {
         viewModel.roomInfo()
-        viewModel.roomEvent.collect { result ->
-            Log.i("ReservationScreen", "Recibiendo datos de room: $result")
-            rooms = result
-            if (selectedRoom == null && result.isNotEmpty()) {
-                selectedRoom = result.first() // Primer room por default
+        viewModel.roomEvent.collect {
+            Log.i("ReservationScreen", "Recibiendo datos de room: $it")
+            rooms = it
+            if (selectedRoom == null && it.isNotEmpty()) {
+                selectedRoom = it.first() // Primer room por default
             }
         }
     }

@@ -3,6 +3,7 @@ package com.pipeanayap.hotelapp.presentation.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pipeanayap.hotelapp.domain.models.Room
 import com.pipeanayap.hotelapp.services.RoomService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,6 +19,9 @@ class RoomViewModel @Inject constructor(
     //success
     private val  _roomEvent= MutableSharedFlow<List<Room>>()
     val roomEvent =_roomEvent.asSharedFlow()
+
+    private val _roomIdEvent = MutableSharedFlow<List<Room>>()
+    val roomIdEvent = _roomIdEvent.asSharedFlow() // Correcto
 
     fun roomInfo() {
         viewModelScope.launch {
@@ -36,8 +40,18 @@ class RoomViewModel @Inject constructor(
         }
     }
 
-    fun roomByiD(){
-
+    fun roomByiD(id: String) {
+        viewModelScope.launch {
+            try {
+                val response = roomService.getRoomsById(id)
+                Log.i("RoomViewModel", "Room by ID Response: $response")
+                _roomIdEvent.emit(listOf(response)) // Emitimos la habitación como una lista
+                Log.i("RoomViewModel", "Emitiendo datos: $response")
+            } catch (e: Exception) {
+                Log.e("RoomViewModel", "Error fetching room by ID: ${e.message}", e)
+                _roomIdEvent.emit(listOf()) // Emitimos una lista vacía en caso de error
+            }
+        }
     }
 
 

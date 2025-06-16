@@ -215,7 +215,7 @@ fun PayScreen(navController: NavController) {
 
 
         Button(
-            onClick = {navController.navigate(Screens.PaymentScreen.route)},
+            onClick = {navController.navigate(Screens.PaymentScreenRoute)},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
