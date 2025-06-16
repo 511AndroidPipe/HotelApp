@@ -19,7 +19,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.pipeanayap.hotelapp.R
-import com.pipeanayap.hotelapp.domain.models.Room
 import com.pipeanayap.hotelapp.presentation.Components.Banknote
 import com.pipeanayap.hotelapp.presentation.Components.BedDouble
 import com.pipeanayap.hotelapp.presentation.Components.HandPlatter

@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
                         RegisterScreen( navController)
                     }
 
+
                     navigation<Screens.MainGraph>(startDestination = Screens.MainScreenRoute){
                         composable<Screens.MainScreenRoute> {
                             MainScreen()
