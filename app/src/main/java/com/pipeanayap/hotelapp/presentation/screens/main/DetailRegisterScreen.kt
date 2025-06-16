@@ -1,9 +1,11 @@
 package com.pipeanayap.hotelapp.presentation.screens.main
 
+import android.app.DatePickerDialog
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,13 +33,27 @@ import com.pipeanayap.hotelapp.presentation.ui.theme.DetailRegisterDateColor
 import com.pipeanayap.hotelapp.presentation.ui.theme.Azulito
 import com.pipeanayap.hotelapp.presentation.viewmodels.RoomViewModel
 import kotlinx.coroutines.flow.collectLatest
+import java.util.Calendar
 
 @Composable
 fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavController, roomId: String) {
     val viewModel: RoomViewModel = hiltViewModel()
-    Log.i("roomId", roomId)
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
 
     var room by remember { mutableStateOf<Room?>(null) }
+
+    // Estados para Check-In
+    var checkInYear by remember { mutableStateOf(calendar.get(Calendar.YEAR)) }
+    var checkInMonth by remember { mutableStateOf(calendar.get(Calendar.MONTH)) }
+    var checkInDay by remember { mutableStateOf(calendar.get(Calendar.DAY_OF_MONTH)) }
+    var showCheckInPicker by remember { mutableStateOf(false) }
+
+    // Estados para Check-Out
+    var checkOutYear by remember { mutableStateOf(calendar.get(Calendar.YEAR)) }
+    var checkOutMonth by remember { mutableStateOf(calendar.get(Calendar.MONTH)) }
+    var checkOutDay by remember { mutableStateOf(calendar.get(Calendar.DAY_OF_MONTH)) }
+    var showCheckOutPicker by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.roomByiD(roomId)
@@ -97,18 +114,21 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
             )
         }
 
+        // Fecha de Check-In y Check-Out
         Row(
-            Modifier.padding(top = 5.dp),
+            Modifier.padding(top = 20.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
+            // Check-In
             Box(
                 Modifier
-                    .padding(top = 30.dp)
+                    .padding(top = 15.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(DetailRegisterDateColor)
-                    .width(130.dp)
+                    .width(160.dp)
                     .height(30.dp)
+                    .clickable { showCheckInPicker = true }
             ) {
                 Row(
                     Modifier
@@ -118,11 +138,10 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        "View Dates",
+                        "Llegada: %02d/%02d/%04d".format(checkInDay, checkInMonth + 1, checkInYear),
                         Modifier.weight(1f),
                         style = MaterialTheme.typography.titleSmall
                     )
-
                     Icon(
                         modifier = Modifier
                             .weight(0.5f)
@@ -132,6 +151,74 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                     )
                 }
             }
+            Spacer(modifier = Modifier.width(16.dp))
+            // Check-Out
+            Box(
+                Modifier
+                    .padding(top = 15.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(DetailRegisterDateColor)
+                    .width(160.dp)
+                    .height(30.dp)
+                    .clickable { showCheckOutPicker = true }
+            ) {
+                Row(
+                    Modifier
+                        .padding(6.dp)
+                        .padding(start = 5.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        "Salida: %02d/%02d/%04d".format(checkOutDay, checkOutMonth + 1, checkOutYear),
+                        Modifier.weight(1f),
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                    Icon(
+                        modifier = Modifier
+                            .weight(0.5f)
+                            .size(20.dp),
+                        imageVector = EditCalendar,
+                        contentDescription = null
+                    )
+                }
+            }
+        }
+
+        // DatePickerDialog para Check-In
+        if (showCheckInPicker) {
+            DatePickerDialog(
+                context,
+                { _, year, month, dayOfMonth ->
+                    checkInYear = year
+                    checkInMonth = month
+                    checkInDay = dayOfMonth
+                    showCheckInPicker = false
+                },
+                checkInYear,
+                checkInMonth,
+                checkInDay
+            ).apply {
+                setOnCancelListener { showCheckInPicker = false }
+            }.show()
+        }
+
+        // DatePickerDialog para Check-Out
+        if (showCheckOutPicker) {
+            DatePickerDialog(
+                context,
+                { _, year, month, dayOfMonth ->
+                    checkOutYear = year
+                    checkOutMonth = month
+                    checkOutDay = dayOfMonth
+                    showCheckOutPicker = false
+                },
+                checkOutYear,
+                checkOutMonth,
+                checkOutDay
+            ).apply {
+                setOnCancelListener { showCheckOutPicker = false }
+            }.show()
         }
 
         Icon(
