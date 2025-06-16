@@ -21,6 +21,10 @@ class AuthViewModel @Inject constructor(
     private val _loginEvent = MutableSharedFlow<String>()
     val loginEvent =_loginEvent.asSharedFlow()
 
+    private val _registerEvent = MutableSharedFlow<String>()
+    val registerEvent = _registerEvent.asSharedFlow()
+
+
     fun login(email: String, password: String) {
         val auth = Auth(email = email, password = password)
         viewModelScope.launch {
@@ -45,14 +49,14 @@ class AuthViewModel @Inject constructor(
             try {
                 val response = authService.register(register)
                 Log.i("AuthViewModel", "Response: $response")
-                if (response.message == "Login successful") {
-                    _loginEvent.emit("Login successful")
+                if (response.message == "User successfully registered") {
+                    _registerEvent.emit("User successfully registered")
                 } else {
-                    _loginEvent.emit(response.message)
+                    _registerEvent.emit(response.message)
                 }
             }catch (e: Exception) {
                 Log.e("AuthViewModel", "Error: ${e.message}", e)
-                _loginEvent.emit("Error de conexión: ${e.message}")
+                _registerEvent.emit("Error de conexión: ${e.message}")
             }
         }
     }

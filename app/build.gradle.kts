@@ -67,12 +67,12 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation(libs.kotlinx.serialization.json)
 
-    //iconos
+    //Dependencia de async image
+
+    implementation("io.coil-kt:coil-compose:2.5.0") // o la versión más reciente
+
+    //Dependencia Icon
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
-
-
-    // Coil
-    implementation("io.coil-kt:coil-compose:2.4.0")
 
 
     //Dagger hilt

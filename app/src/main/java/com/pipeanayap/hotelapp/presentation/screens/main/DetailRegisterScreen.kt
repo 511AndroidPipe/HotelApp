@@ -1,5 +1,6 @@
 package com.pipeanayap.hotelapp.presentation.screens.main
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,6 +22,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.materialIcon
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,24 +39,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.pipeanayap.hotelapp.R
 import com.pipeanayap.hotelapp.R.drawable.presidencial1
 import com.pipeanayap.hotelapp.presentation.Components.Account_balance
 import com.pipeanayap.hotelapp.presentation.Components.EditCalendar
+import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.ui.theme.DetailRegisterColorBG
 import com.pipeanayap.hotelapp.presentation.ui.theme.DetailRegisterDateColor
 import com.pipeanayap.hotelapp.presentation.ui.theme.Azulito
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
 
-fun main() {
-
-}
-
 @Composable
-fun DetailRegisterScreen(innerPadding: PaddingValues){
+fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavController){
     Column(Modifier
         .fillMaxSize()
         .background(DetailRegisterColorBG)
+        .padding(innerPadding)
         .padding(20.dp)
         .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally){
@@ -368,19 +370,24 @@ fun DetailRegisterScreen(innerPadding: PaddingValues){
 
             Spacer(modifier = Modifier.width(50.dp))
 
-            // CHECK IN
-            Box(Modifier
-                .clip(RoundedCornerShape(60.dp))
-                .background(Azulito)
-                .height(35.dp)
-                .width(120.dp)
-                .border(
-                    2.dp, Color.Gray, RoundedCornerShape(60.dp)
-                ),
-                contentAlignment = Alignment.Center){
-                Text("Check in",
-                    color = Color.White)
+            Button(
+                onClick = {
+                    navController.navigate(Screens.PaymentScreenRoute)
+                },
+                shape = RoundedCornerShape(60.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Azulito),
+                border = BorderStroke(2.dp, Color.Gray),
+                contentPadding = PaddingValues(0.dp),
+                modifier = Modifier
+                    .height(35.dp)
+                    .width(120.dp)
+            ) {
+                Text(
+                    "Check in",
+                    color = Color.White
+                )
             }
+
         }
 
 
@@ -388,11 +395,11 @@ fun DetailRegisterScreen(innerPadding: PaddingValues){
 }
 
 
-@Preview
-@Composable
-fun DetailRegisterScreenPreview() {
-    HotelAppTheme {
-        DetailRegisterScreen(innerPadding = PaddingValues(20.dp))
-
-    }
-}
+//@Preview
+//@Composable
+//fun DetailRegisterScreenPreview() {
+//    HotelAppTheme {
+//        DetailRegisterScreen(innerPadding = PaddingValues(20.dp))
+//
+//    }
+//}

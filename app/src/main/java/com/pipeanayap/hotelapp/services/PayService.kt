@@ -1,6 +1,5 @@
 package com.pipeanayap.hotelapp.services
 
-import com.pipeanayap.hotelapp.domain.models.Room
 import retrofit2.http.GET
 
 interface PayService {
