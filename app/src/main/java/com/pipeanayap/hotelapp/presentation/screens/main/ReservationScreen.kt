@@ -128,7 +128,7 @@ fun ReservationScreen(innerPadding: PaddingValues, navController: NavController)
                     .padding(bottom = 40.dp)
             ) {
                 Text(
-                    text ="No description available.",
+                    text = "No description available.",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodyLarge
                 )
@@ -162,11 +162,15 @@ fun ReservationScreen(innerPadding: PaddingValues, navController: NavController)
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(Modifier.width(5.dp))
-                    Text(
-                        text = "Restaurant (without open bar)",
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                    Column {
+                        room.services.forEach { service ->
+                            Text(
+                                text = service.name, // Muestra el nombre del servicio
+                                color = MaterialTheme.colorScheme.primary,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    }
                 }
 
                 Row(Modifier.padding(bottom = 15.dp)) {
@@ -178,7 +182,7 @@ fun ReservationScreen(innerPadding: PaddingValues, navController: NavController)
                     )
                     Spacer(Modifier.width(5.dp))
                     Text(
-                        text = "Suggested for ${ 2} people",
+                        text = "Suggested for ${2} people",
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -210,7 +214,8 @@ fun ReservationScreen(innerPadding: PaddingValues, navController: NavController)
                 Button(
                     onClick = {
                         // Aquí puedes pasar el ID si lo necesitas
-                        navController.navigate("${Screens.DetailRegisterScreenRoute}/${room.id}")                    }
+                        navController.navigate("${Screens.DetailRegisterScreenRoute}/${room.id}")
+                    }
                 ) {
                     Text(
                         text = "SELECT",
