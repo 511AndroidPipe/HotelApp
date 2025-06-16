@@ -8,9 +8,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.pipeanayap.hotelapp.presentation.navigation.BottomNavItem
 import com.pipeanayap.hotelapp.presentation.navigation.Screens
 
@@ -59,13 +61,19 @@ fun MainScreen() {
                 ReservationScreen(innerPadding = innerPadding, navController = navController)
             }
 
-            composable<Screens.DetailRegisterScreenRoute> {
-                DetailRegisterScreen(innerPadding, navController)
+            composable(
+                "${Screens.DetailRegisterScreenRoute::class.simpleName}/{roomId}",
+                arguments = listOf(navArgument("roomId") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val roomId = backStackEntry.arguments?.getString("roomId")
+                DetailRegisterScreen(innerPadding, navController, roomId)
             }
 
             composable<Screens.PaymentScreenRoute> {
                 PaymentScreen(innerPadding)
             }
+
+
         }
     }
 }
