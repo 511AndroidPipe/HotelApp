@@ -32,6 +32,9 @@ sealed class Screens(){
     @Serializable
     object PaymentScreenRoute : Screens()
 
+    @Serializable
+    object ProfileScreenRoute : Screens()
+
 
     //Faltar rutas
 
