@@ -40,10 +40,6 @@ object AppModule {
         return retrofit.create(RoomService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun providesPayService(retrofit: Retrofit): RoomService {
-        return retrofit.create(RoomService::class.java)
-    }
+
 
 }
