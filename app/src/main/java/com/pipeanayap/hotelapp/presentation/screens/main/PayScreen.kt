@@ -1,9 +1,13 @@
-package com.pipeanayap.hotelapp.presentation.screens.main
-
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
@@ -20,12 +24,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pipeanayap.hotelapp.domain.models.Room
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelBlue
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelDarkGray
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelLightGray
@@ -33,36 +36,49 @@ import com.pipeanayap.hotelapp.presentation.navigation.Screens
 
 @Composable
 fun PayScreen(
+    innerPadding : PaddingValues,
     navController: NavController,
     type: String,
     checkInDate: String,
     checkOutDate: String,
     services: String,
-    price: Float
+    price: Float,
+    idRoom: String
 ) {
-    // Función para formatear precios
+    // Formateador para las fechas
+    val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+    // Convertir las fechas a LocalDate
+    val checkIn = LocalDate.parse(checkInDate, dateFormatter)
+    val checkOut = LocalDate.parse(checkOutDate, dateFormatter)
+
+    // Calcular la diferencia en días
+    val daysBetween = ChronoUnit.DAYS.between(checkIn, checkOut).toInt()
+
+    // Calcular el precio total
+    val totalPrice = daysBetween * price
+
+    Log.d("PayScreen", "Days Between: $daysBetween")
+    Log.d("PayScreen", "Total Price: $totalPrice")
+
+    // Dividir los servicios y registrar cada uno
+    val serviceList = services.split(",")
+    serviceList.forEach { service ->
+        Log.d("PayScreen", "Service: $service")
+    }
+
     fun formatPrice(price: Double): String {
         return "$${"%.2f".format(price)} USD"
     }
-
-    // Convertir la cadena de servicios en una lista de pares
-    val serviceList: List<Pair<String, Double>> = try {
-        services.split(";").map {
-            val (name, cost) = it.split(",")
-            name to cost.toDouble()
-        }
-    } catch (e: Exception) {
-        emptyList()
-    }
-
-    // Calcular el precio total
-    val totalPrice = price + serviceList.sumOf { it.second }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(HotelLightGray)
+            .padding(innerPadding)
             .padding(24.dp)
+            .verticalScroll(rememberScrollState())
+
     ) {
         // Encabezado
         Row(
@@ -164,20 +180,16 @@ fun PayScreen(
             )
         }
 
-        serviceList.forEach { (serviceName, servicePrice) ->
+        serviceList.forEach {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.padding(top = 30.dp)
             ) {
                 Text(
-                    text = serviceName,
+                    text = it,
                     style = MaterialTheme.typography.bodyLarge,
                     color = HotelDarkGray,
                     modifier = Modifier.weight(1f)
-                )
-                Text(
-                    text = formatPrice(servicePrice),
-                    style = MaterialTheme.typography.labelLarge
                 )
             }
             DashedDivider()
@@ -196,17 +208,20 @@ fun PayScreen(
             Text(
                 text = "TOTAL",
                 style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.weight(1f)
             )
             Text(
-                text = formatPrice(totalPrice),
+                text = "$${"%.2f".format(totalPrice)} USD",
                 style = MaterialTheme.typography.labelLarge
             )
         }
 
         // Botón de pago
         Button(
-            onClick = { navController.navigate(Screens.PaymentScreenRoute) },
+            onClick = {
+                navController.navigate(
+                    "${Screens.PaymentScreenRoute}/$type/$checkInDate/$checkOutDate/$services/$price/$idRoom"
+                )
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
@@ -219,6 +234,8 @@ fun PayScreen(
                 textAlign = TextAlign.Center
             )
         }
+
+        Spacer(modifier = Modifier.height(65.dp))
     }
 }
 

@@ -295,7 +295,7 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
                     val price = room?.price ?: 0.0
 
                     navController.navigate(
-                        "${Screens.PaymentScreenRoute}/$type/$checkInDate/$checkOutDate/$services/$price"
+                        "${Screens.PayScreenRoute}/$type/$checkInDate/$checkOutDate/$services/$price/${roomId}"
                     )
                 },
                 shape = RoundedCornerShape(60.dp),
