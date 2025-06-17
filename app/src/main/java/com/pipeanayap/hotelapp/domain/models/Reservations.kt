@@ -5,6 +5,5 @@ data class Reservations(
     val _id: String,
     val datetime: String,
     val idRoom: Any,
-    val idServices: List<Service>,
     val idUser: Any
 )

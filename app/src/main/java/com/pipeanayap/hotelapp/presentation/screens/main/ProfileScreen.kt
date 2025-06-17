@@ -23,30 +23,40 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.pipeanayap.hotelapp.domain.models.Reservations
+import com.pipeanayap.hotelapp.domain.models.Room
+import com.pipeanayap.hotelapp.presentation.components.CardReservations
 import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
+import com.pipeanayap.hotelapp.presentation.viewmodels.ReservationViewModel
+import com.pipeanayap.hotelapp.presentation.viewmodels.RoomViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun ProfileScreen(innerPadding: PaddingValues) {
+fun ProfileScreen(innerPadding: PaddingValues, navController: NavController) {
 
-    val navController = rememberNavController()
+    val viewModel: ReservationViewModel = hiltViewModel()
 
-    //FAlta la retrofit de viewmodel de reseravtio
+    var reservations by remember { mutableStateOf<List<Reservations>>(emptyList()) }
 
     LaunchedEffect(Unit) {
-        viewModel
-        viewModel.roomIdEvent.collectLatest { rooms ->
-            Log.i("DetailRegisterScreen", "Recibiendo datos de room: $rooms")
-            room = rooms.firstOrNull()
-            Log.i("DetailRegisterScreen", "Room asignado: $room")
+        viewModel.profileInfo()
+        viewModel.reservationEvent.collect {
+            Log.i("ProfileScreen", "Recibiendo datos de reservation: $it")
+            reservations = it
         }
     }
 
@@ -100,11 +110,7 @@ fun ProfileScreen(innerPadding: PaddingValues) {
             color = MaterialTheme.colorScheme.primary
         )
 
-        Column {
-            Card{
-
-            }
-        }
+        CardReservations(reservations = reservations)
 
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -129,6 +135,5 @@ fun ProfileScreen(innerPadding: PaddingValues) {
 @Composable
 fun ProfileScreenPreview() {
     HotelAppTheme {
-        ProfileScreen(innerPadding = PaddingValues(20.dp))
     }
 }

@@ -27,6 +27,7 @@ fun MainScreen() {
         mutableStateOf<Screens>(Screens.MenuScreenRoute)
     }
     val navController = rememberNavController()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
@@ -54,7 +55,7 @@ fun MainScreen() {
     )  { innerPadding ->
         NavHost(navController = navController, startDestination = Screens.MenuScreenRoute) {
             composable<Screens.MenuScreenRoute>{
-                MenuScreen(innerPadding = innerPadding)
+                MenuScreen(innerPadding, navController)
             }
 
             composable<Screens.ReservationScreenRoute> {
@@ -73,6 +74,10 @@ fun MainScreen() {
 
             composable<Screens.PaymentScreenRoute> {
                 PaymentScreen(innerPadding, navController)
+            }
+
+            composable<Screens.ProfileScreenRoute> {
+                ProfileScreen(innerPadding, navController)
             }
         }
     }

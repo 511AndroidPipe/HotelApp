@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.pipeanayap.hotelapp.R
@@ -33,10 +34,7 @@ import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
 
 @Composable
-fun MenuScreen(innerPadding: PaddingValues) {
-
-    val navController = rememberNavController()
-
+fun MenuScreen(innerPadding: PaddingValues, navController: NavController) {
 
 
     Column(
@@ -65,7 +63,6 @@ fun MenuScreen(innerPadding: PaddingValues) {
 
             Box(
                 Modifier.clickable {
-
                     navController.navigate(Screens.ProfileScreenRoute)
 
                 }
@@ -119,6 +116,5 @@ fun MenuScreen(innerPadding: PaddingValues) {
 @Composable
 fun MenuScreenPreview(){
     HotelAppTheme {
-        MenuScreen(innerPadding = PaddingValues(20.dp))
     }
 }
