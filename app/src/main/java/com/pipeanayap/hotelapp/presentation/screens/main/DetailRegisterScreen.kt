@@ -55,6 +55,10 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
     var checkOutDay by remember { mutableStateOf(calendar.get(Calendar.DAY_OF_MONTH)) }
     var showCheckOutPicker by remember { mutableStateOf(false) }
 
+    // 1. Formatea las fechas seleccionadas
+    val checkInDate = "%04d-%02d-%02d".format(checkInYear, checkInMonth + 1, checkInDay)
+    val checkOutDate = "%04d-%02d-%02d".format(checkOutYear, checkOutMonth + 1, checkOutDay)
+
     LaunchedEffect(Unit) {
         viewModel.roomByiD(roomId)
         viewModel.roomIdEvent.collectLatest { rooms ->
@@ -284,22 +288,15 @@ fun DetailRegisterScreen(innerPadding: PaddingValues, navController: NavControll
         }
 
         Row(Modifier.padding(top = 50.dp)) {
-            Box(
-                Modifier
-                    .height(30.dp)
-                    .width(120.dp)
-                    .clip(RoundedCornerShape(60.dp))
-                    .border(2.dp, Color.Gray, RoundedCornerShape(60.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("$ TOTAL")
-            }
-
-            Spacer(modifier = Modifier.width(50.dp))
-
             Button(
                 onClick = {
-                    navController.navigate(Screens.PaymentScreenRoute)
+                    val type = room?.type ?: "Tipo no disponible"
+                    val services = room?.services?.joinToString(",") { it.name } ?: "Sin servicios"
+                    val price = room?.price ?: 0.0
+
+                    navController.navigate(
+                        "${Screens.PaymentScreenRoute}/$type/$checkInDate/$checkOutDate/$services/$price"
+                    )
                 },
                 shape = RoundedCornerShape(60.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Azulito),

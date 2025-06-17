@@ -71,7 +71,22 @@ fun MainScreen() {
                 }
             }
 
-            composable<Screens.PaymentScreenRoute> {
+            composable(
+                "${Screens.PaymentScreenRoute}/{type}/{checkInDate}/{checkOutDate}/{services}/{price}",
+                arguments = listOf(
+                    navArgument("type") { type = NavType.StringType },
+                    navArgument("checkInDate") { type = NavType.StringType },
+                    navArgument("checkOutDate") { type = NavType.StringType },
+                    navArgument("services") { type = NavType.StringType },
+                    navArgument("price") { type = NavType.FloatType }
+                )
+            ) { backStackEntry ->
+                val type = backStackEntry.arguments?.getString("type") ?: "Tipo no disponible"
+                val checkInDate = backStackEntry.arguments?.getString("checkInDate") ?: "Fecha no disponible"
+                val checkOutDate = backStackEntry.arguments?.getString("checkOutDate") ?: "Fecha no disponible"
+                val services = backStackEntry.arguments?.getString("services") ?: "Sin servicios"
+                val price = backStackEntry.arguments?.getFloat("price") ?: 0.0f
+
                 PaymentScreen(innerPadding, navController)
             }
         }
