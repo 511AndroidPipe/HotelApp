@@ -2,6 +2,7 @@ package com.pipeanayap.hotelapp.presentation.screens.main
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -31,7 +32,7 @@ import com.pipeanayap.hotelapp.presentation.ui.theme.HotelLightGray
 import com.pipeanayap.hotelapp.presentation.navigation.Screens
 
 @Composable
-fun PaymentScreen(
+fun PayScreen(
     navController: NavController,
     type: String,
     checkInDate: String,
@@ -39,9 +40,23 @@ fun PaymentScreen(
     services: String,
     price: Float
 ) {
+    // Función para formatear precios
     fun formatPrice(price: Double): String {
         return "$${"%.2f".format(price)} USD"
     }
+
+    // Convertir la cadena de servicios en una lista de pares
+    val serviceList: List<Pair<String, Double>> = try {
+        services.split(";").map {
+            val (name, cost) = it.split(",")
+            name to cost.toDouble()
+        }
+    } catch (e: Exception) {
+        emptyList()
+    }
+
+    // Calcular el precio total
+    val totalPrice = price + serviceList.sumOf { it.second }
 
     Column(
         modifier = Modifier
@@ -49,24 +64,27 @@ fun PaymentScreen(
             .background(HotelLightGray)
             .padding(24.dp)
     ) {
+        // Encabezado
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back Icon"
+                contentDescription = "Back Icon",
+                modifier = Modifier.clickable { navController.popBackStack() }
             )
-            Spacer(modifier = Modifier.weight(1f)) // Empuja el texto al centro
+            Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "Payment",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.weight(1.2f)) // Compensa visualmente al ícono
+            Spacer(modifier = Modifier.weight(1.2f))
         }
 
+        // Información de la habitación
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = 50.dp)
@@ -87,19 +105,20 @@ fun PaymentScreen(
             modifier = Modifier.padding(top = 30.dp)
         ) {
             Text(
-                text = "Plus+",
+                text = type,
                 style = MaterialTheme.typography.bodyLarge,
                 color = HotelDarkGray,
                 modifier = Modifier.weight(1f)
             )
             Text(
-                text = "$300 USD per night",
+                text = formatPrice(price.toDouble()),
                 style = MaterialTheme.typography.labelLarge
             )
         }
 
         DashedDivider()
 
+        // Fechas
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = 50.dp)
@@ -110,7 +129,7 @@ fun PaymentScreen(
             )
             Icon(
                 imageVector = Icons.Default.DateRange,
-                contentDescription = "calendar Icon",
+                contentDescription = "Calendar Icon",
                 modifier = Modifier.padding(start = 8.dp)
             )
         }
@@ -120,19 +139,16 @@ fun PaymentScreen(
             modifier = Modifier.padding(top = 30.dp)
         ) {
             Text(
-                text = "Fri 6 jun - Sat 21 jun",
+                text = "$checkInDate - $checkOutDate",
                 style = MaterialTheme.typography.bodyLarge,
                 color = HotelDarkGray,
                 modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = "$4500 USD per night",
-                style = MaterialTheme.typography.labelLarge
             )
         }
 
         DashedDivider()
 
+        // Servicios
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = 50.dp)
@@ -143,28 +159,33 @@ fun PaymentScreen(
             )
             Icon(
                 imageVector = Icons.Default.Face,
-                contentDescription = "services Icon",
+                contentDescription = "Services Icon",
                 modifier = Modifier.padding(start = 8.dp)
             )
         }
 
-        services.forEach { (services) ->
+        serviceList.forEach { (serviceName, servicePrice) ->
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.padding(top = 30.dp)
             ) {
                 Text(
-                    text = services,
+                    text = serviceName,
                     style = MaterialTheme.typography.bodyLarge,
                     color = HotelDarkGray,
                     modifier = Modifier.weight(1f)
                 )
+                Text(
+                    text = formatPrice(servicePrice),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
             DashedDivider()
         }
 
-
         Spacer(modifier = Modifier.weight(1f))
 
+        // Total
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -178,20 +199,18 @@ fun PaymentScreen(
                 modifier = Modifier.weight(1f)
             )
             Text(
-                text = "$100 USD",
+                text = formatPrice(totalPrice),
                 style = MaterialTheme.typography.labelLarge
             )
-
         }
 
-
+        // Botón de pago
         Button(
-            onClick = {navController.navigate(Screens.PaymentScreenRoute)},
+            onClick = { navController.navigate(Screens.PaymentScreenRoute) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = HotelBlue)
+            colors = ButtonDefaults.buttonColors(containerColor = HotelBlue)
         ) {
             Text(
                 text = "Credit/Debit Card",
@@ -220,5 +239,3 @@ fun DashedDivider() {
         )
     }
 }
-
-
