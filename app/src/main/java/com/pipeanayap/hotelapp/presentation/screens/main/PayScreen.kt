@@ -31,7 +31,18 @@ import com.pipeanayap.hotelapp.presentation.ui.theme.HotelLightGray
 import com.pipeanayap.hotelapp.presentation.navigation.Screens
 
 @Composable
-fun PayScreen(navController: NavController) {
+fun PaymentScreen(
+    navController: NavController,
+    type: String,
+    checkInDate: String,
+    checkOutDate: String,
+    services: String,
+    price: Float
+) {
+    fun formatPrice(price: Double): String {
+        return "$${"%.2f".format(price)} USD"
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -137,60 +148,20 @@ fun PayScreen(navController: NavController) {
             )
         }
 
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.padding(top = 30.dp)
-        ) {
-            Text(
-                text = "Gym",
-                style = MaterialTheme.typography.bodyLarge,
-                color = HotelDarkGray,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = "$25 USD",
-                style = MaterialTheme.typography.labelLarge
-            )
+        services.forEach { (services) ->
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.padding(top = 30.dp)
+            ) {
+                Text(
+                    text = services,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = HotelDarkGray,
+                    modifier = Modifier.weight(1f)
+                )
+            DashedDivider()
         }
 
-        DashedDivider()
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.padding(top = 30.dp)
-        ) {
-            Text(
-                text = "Spa",
-                style = MaterialTheme.typography.bodyLarge,
-                color = HotelDarkGray,
-
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = "$100 USD",
-                style = MaterialTheme.typography.labelLarge
-            )
-        }
-
-        DashedDivider()
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.padding(top = 30.dp)
-        ) {
-            Text(
-                text = "KidsClub",
-                style = MaterialTheme.typography.bodyLarge,
-                color = HotelDarkGray,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = "$200 USD",
-                style = MaterialTheme.typography.labelLarge
-            )
-        }
-
-        DashedDivider()
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -215,7 +186,7 @@ fun PayScreen(navController: NavController) {
 
 
         Button(
-            onClick = {navController.navigate(Screens.PaymentScreen.route)},
+            onClick = {navController.navigate(Screens.PaymentScreenRoute)},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
