@@ -128,7 +128,12 @@ fun ReservationScreen(innerPadding: PaddingValues, navController: NavController)
                     .padding(bottom = 40.dp)
             ) {
                 Text(
-                    text = "No description available.",
+                    text = when (room.type) {
+                        "Standard" -> "Comfortable room with essential features."
+                        "Presidencial" -> "Elegant suite with premium services."
+                        "Plus" -> "Affordable room with basic facilities."
+                        else -> "No description available."
+                    },
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodyLarge
                 )
@@ -148,7 +153,12 @@ fun ReservationScreen(innerPadding: PaddingValues, navController: NavController)
                     )
                     Spacer(Modifier.width(5.dp))
                     Text(
-                        text = "Matrimonial Bed",
+                        text = when (room.type) {
+                            "Standard" -> "Matrimonia"
+                            "Presidencial" -> "KingSize"
+                            "Plus" -> "Ultimate Bed"
+                            else -> "No description available."
+                        },
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -182,7 +192,12 @@ fun ReservationScreen(innerPadding: PaddingValues, navController: NavController)
                     )
                     Spacer(Modifier.width(5.dp))
                     Text(
-                        text = "Suggested for ${2} people",
+                        text = when (room.type) {
+                            "Standard" -> "Suggested for ${2} people"
+                            "Presidencial" -> "Suggested for ${4} people"
+                            "Plus" -> "Suggested for ${6} people"
+                            else -> "No description available."
+                        },
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.bodyMedium
                     )

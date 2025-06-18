@@ -24,6 +24,7 @@ import com.pipeanayap.hotelapp.presentation.screens.main.DetailRegisterScreen
 import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.screens.auth.LoginScreen
 import com.pipeanayap.hotelapp.presentation.screens.main.MainScreen
+import com.pipeanayap.hotelapp.presentation.screens.main.ProfileScreen
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,12 +44,15 @@ class MainActivity : ComponentActivity() {
 
                     composable<Screens.RegisterScreenRoute> {
                         RegisterScreen( navController)
-                    }
+                   }
                     
-                    navigation<Screens.MainGraph>(startDestination = Screens.MainScreenRoute){
+                    navigation<Screens.MainGraph>(startDestination = Screens.MainScreenRoute,){
                         composable<Screens.MainScreenRoute> {
                             MainScreen()
                             }
+
+
+
                     }
                 }
             }
