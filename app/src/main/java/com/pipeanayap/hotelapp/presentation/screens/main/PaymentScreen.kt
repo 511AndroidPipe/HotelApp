@@ -1,9 +1,12 @@
 package com.pipeanayap.hotelapp.presentation.screens.main
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CreditCard
@@ -18,16 +21,35 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.pipeanayap.hotelapp.domain.models.Room
+import com.pipeanayap.hotelapp.presentation.navigation.Screens
 import com.pipeanayap.hotelapp.presentation.ui.theme.HotelLightGray
+import com.pipeanayap.hotelapp.presentation.viewmodels.AuthViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class) // Necesario para SegmentedButton
 @Composable
-fun PaymentScreen(innerPadding : PaddingValues, navController: NavController) {
+fun PaymentScreen( innerPadding : PaddingValues,
+                   navController: NavController,
+                   type: String,
+                   checkInDate: String,
+                   checkOutDate: String,
+                   services: String,
+                   price: Float,
+                   idRoom: String) {
+    Log.d("idRoom", idRoom)
+
     var cardNumber by remember { mutableStateOf("") }
+    var cardName by remember { mutableStateOf("") }
+
     // Estado para controlar la selección del tipo de tarjeta
     var selectedCardType by remember { mutableStateOf("Debit Card") }
+
+    var expirationDate by remember { mutableStateOf("") } // Estado para la fecha de expiración
+    var cvv by remember { mutableStateOf("") } // Estado para el CVV
+
 
     Column(
         modifier = Modifier
@@ -59,7 +81,8 @@ fun PaymentScreen(innerPadding : PaddingValues, navController: NavController) {
                 .fillMaxHeight()
                 .padding(5.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .background(Color.White),
+                .background(Color.White)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -124,7 +147,6 @@ fun PaymentScreen(innerPadding : PaddingValues, navController: NavController) {
                         contentDescription = "Card Icon"
                     )
                 },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier
                     .clip(RoundedCornerShape(20.dp))
                     .background(Color.LightGray) // Fondo personalizado
@@ -145,8 +167,11 @@ fun PaymentScreen(innerPadding : PaddingValues, navController: NavController) {
                         modifier = Modifier.padding(top = 16.dp)
                     )
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = expirationDate,
+                        onValueChange = {
+                                expirationDate = it
+
+                        },
                         placeholder = { Text("MM/YY") },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -164,8 +189,12 @@ fun PaymentScreen(innerPadding : PaddingValues, navController: NavController) {
                         modifier = Modifier.padding(top = 16.dp)
                     )
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = cvv,
+                        onValueChange = {
+                            if (it.length <= 3 && it.all { char -> char.isDigit() }) {
+                                cvv = it
+                            }
+                        },
                         placeholder = { Text("CVV") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier
@@ -184,8 +213,8 @@ fun PaymentScreen(innerPadding : PaddingValues, navController: NavController) {
                     .padding(start = 24.dp)
             )
             OutlinedTextField(
-                value = cardNumber, // Aquí podrías usar una variable para el nombre de la tarjeta
-                onValueChange = {},
+                value = cardName, // Aquí podrías usar una variable para el nombre de la tarjeta
+                onValueChange = { cardName = it},
                 placeholder = { Text("Enter Card Owner") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text), // Generalmente es texto, no número
                 modifier = Modifier
@@ -217,7 +246,11 @@ fun PaymentScreen(innerPadding : PaddingValues, navController: NavController) {
                 }
 
                 Button(
-                    onClick = { /* Acción de pago */ },
+                    onClick = {
+
+                        navController.navigate(Screens.MenuScreenRoute)
+
+                    },
                     modifier = Modifier
                         .weight(1f)
                         .clip(RoundedCornerShape(20.dp)),

@@ -1,5 +1,6 @@
 package com.pipeanayap.hotelapp.presentation.screens.main
 
+import PayScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -62,7 +63,7 @@ fun MainScreen() {
             }
 
             composable(
-                "${Screens.DetailRegisterScreenRoute::class.simpleName}/{roomId}",
+                "${Screens.DetailRegisterScreenRoute}/{roomId}",
                 arguments = listOf(navArgument("roomId") { type = NavType.StringType })
             ) { backStackEntry ->
                 val roomId = backStackEntry.arguments?.getString("roomId")
@@ -71,10 +72,47 @@ fun MainScreen() {
                 }
             }
 
-            composable<Screens.PaymentScreenRoute> {
-                PaymentScreen(innerPadding)
+            composable(
+                "${Screens.PayScreenRoute}/{type}/{checkInDate}/{checkOutDate}/{services}/{price}/{idRoom}",
+                arguments = listOf(
+                    navArgument("type") { type = NavType.StringType },
+                    navArgument("checkInDate") { type = NavType.StringType },
+                    navArgument("checkOutDate") { type = NavType.StringType },
+                    navArgument("services") { type = NavType.StringType },
+                    navArgument("price") { type = NavType.FloatType },
+                    navArgument("idRoom"){type = NavType.StringType}
+                )
+            ) { backStackEntry ->
+                val type = backStackEntry.arguments?.getString("type") ?: "Tipo no disponible"
+                val checkInDate = backStackEntry.arguments?.getString("checkInDate") ?: "Fecha no disponible"
+                val checkOutDate = backStackEntry.arguments?.getString("checkOutDate") ?: "Fecha no disponible"
+                val services = backStackEntry.arguments?.getString("services") ?: "Sin servicios"
+                val price = backStackEntry.arguments?.getFloat("price") ?: 0.0f
+                val idRoom = backStackEntry.arguments?.getString("idRoom") ?: "Sin room"
+
+                PayScreen(innerPadding, navController, type, checkInDate, checkOutDate, services, price, idRoom)
             }
 
+            composable(
+                "${Screens.PaymentScreenRoute}/{type}/{checkInDate}/{checkOutDate}/{services}/{price}/{idRoom}",
+                arguments = listOf(
+                    navArgument("type") { type = NavType.StringType },
+                    navArgument("checkInDate") { type = NavType.StringType },
+                    navArgument("checkOutDate") { type = NavType.StringType },
+                    navArgument("services") { type = NavType.StringType },
+                    navArgument("price") { type = NavType.FloatType },
+                    navArgument("idRoom"){type = NavType.StringType}
+                )
+            ) { backStackEntry ->
+                val type = backStackEntry.arguments?.getString("type") ?: "Tipo no disponible"
+                val checkInDate = backStackEntry.arguments?.getString("checkInDate") ?: "Fecha no disponible"
+                val checkOutDate = backStackEntry.arguments?.getString("checkOutDate") ?: "Fecha no disponible"
+                val services = backStackEntry.arguments?.getString("services") ?: "Sin servicios"
+                val price = backStackEntry.arguments?.getFloat("price") ?: 0.0f
+                val idRoom = backStackEntry.arguments?.getString("idRoom") ?: "Sin room"
+
+                PaymentScreen(innerPadding, navController, type, checkInDate, checkOutDate, services, price, idRoom)
+            }
 
         }
     }

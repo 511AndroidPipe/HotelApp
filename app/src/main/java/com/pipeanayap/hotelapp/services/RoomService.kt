@@ -11,6 +11,6 @@ interface RoomService {
     suspend fun getRooms() : List<Room>
 
     @GET("rooms/{id}")
-    suspend fun getRoomsById(@Path("id") id:String) : Room
+    suspend fun getRoomsById(@Path("id") id: String): Room
 
 }

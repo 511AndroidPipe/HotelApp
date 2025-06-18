@@ -33,6 +33,7 @@ class AuthViewModel @Inject constructor(
                 Log.i("AuthViewModel", "Response: $response")
                 if (response.message == "Login successful") {
                     _loginEvent.emit("Login successful")
+//                    _idUser.emit(response.idUser) // Emitir el idUser
                 } else {
                     _loginEvent.emit(response.message)
                 }
